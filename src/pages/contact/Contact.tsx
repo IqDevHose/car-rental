@@ -94,14 +94,11 @@ const Contact = () => {
 
   return (
     <main className="overflow-hidden">
-      <div className="relative h-[300px] w-full">
-        <img
-          src="/cars/porsche.jpeg"
-          alt="Contact Us"
-          className="object-cover brightness-50"
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-4xl font-extrabold text-white">Contact Us</h1>
+      <div className="bg-[url('/cars/porsche.jpeg')] bg-no-repeat bg-cover bg-center relative h-[400px] bg-black w-full">
+        {/* Overlay for darkening */}
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+          <h1 className="text-5xl font-extrabold mb-4">Contact Us</h1>
         </div>
       </div>
 

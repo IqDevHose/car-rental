@@ -92,13 +92,9 @@ const About = () => {
 
   return (
     <main className="overflow-hidden">
-      {/* Hero Section */}
-      <div className="relative h-[400px] w-full">
-        <img
-          src="/cars/porsche.jpeg"
-          alt="About Us"
-          className="object-cover brightness-50"
-        />
+      <div className="bg-[url('/cars/porsche.jpeg')] bg-no-repeat bg-cover bg-center relative h-[400px] bg-black w-full">
+        {/* Overlay for darkening */}
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
           <h1 className="text-5xl font-extrabold mb-4">About Us</h1>
           <p className="text-xl max-w-2xl text-center">

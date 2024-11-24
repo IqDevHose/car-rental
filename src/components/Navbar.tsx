@@ -5,11 +5,11 @@ import CustomButton from "./CustomButton";
 const links = [
   {
     label: "Home",
-    link: "#",
+    link: "/",
   },
   {
     label: "Gallery",
-    link: "#",
+    link: "/",
   },
   {
     label: "Contact",
