@@ -3,6 +3,7 @@ import { useState } from "react";
 import Hero from "@/components/Hero";
 import SearchBar from "@/components/Searchbar";
 import CustomFilter from "@/components/CustomFilter";
+import MostRented from "@/components/MostRented";
 
 export const yearsOfProduction = [
   { title: "Year", value: "" },
@@ -164,6 +165,12 @@ export default function Home() {
   return (
     <main className="overflow-hidden">
       <Hero />
+      <div className="padding-x max-width">
+        <div className="home__text-container pt-8">
+          <h1 className="text-4xl font-extrabold">Most Rented</h1>
+        </div>
+        <MostRented />
+      </div>
 
       <div className="padding-x max-width">
         <div className="home__text-container pt-8">
