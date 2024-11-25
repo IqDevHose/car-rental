@@ -20,6 +20,8 @@ const SearchButton = () => (
 const SearchBar = () => {
   const [manufacturer, setManuFacturer] = useState("");
   const [model, setModel] = useState("");
+  const [isOpenModel, setIsOpenModel] = useState(false);
+  const [isOpenMake, setIsOpenMake] = useState(false);
 
   const navigate = useNavigate();
 
@@ -60,31 +62,147 @@ const SearchBar = () => {
   };
 
   return (
-    <form className="searchbar" onSubmit={handleSearch}>
-      <div className="searchbar__item">
-        <SearchManufacturer />
-        <SearchButton />
+    <div className="searchbar flex gap-x-4">
+      <div className="relative">
+        <button
+          onClick={() => {
+            setIsOpenMake(!isOpenMake);
+            setIsOpenModel(false);
+          }}
+          className="inline-flex items-center justify-between overflow-hidden w-[200px] border-b bg-white"
+        >
+          <p className="px-4 py-2 text-sm/none text-gray-600 ">Make</p>
+
+          <button className="h-full p-2 text-gray-600 ">
+            <span className="sr-only">Menu</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="size-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </button>
+
+        <div
+          className={`absolute ${
+            isOpenMake ? "opacity-1" : "opacity-0"
+          }  end-0 z-10 mt-2 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg`}
+          role="menu"
+        >
+          <ul className="p-2">
+            <li
+              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              role="menuitem"
+            >
+              Chevrolet
+            </li>
+
+            <li
+              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              role="menuitem"
+            >
+              Cadillac
+            </li>
+
+            <li
+              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              role="menuitem"
+            >
+              Dodge
+            </li>
+
+            <li
+              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              role="menuitem"
+            >
+              Land Rover
+            </li>
+            <li
+              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              role="menuitem"
+            >
+              Nissan
+            </li>
+            <li
+              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              role="menuitem"
+            >
+              Lexus
+            </li>
+          </ul>
+        </div>
       </div>
-      <div className="searchbar__item">
-        <img
-          src="/model-icon.png"
-          width={25}
-          height={25}
-          className="absolute w-[20px] h-[20px] ml-4"
-          alt="car model"
-        />
-        <input
-          type="text"
-          name="model"
-          value={model}
-          onChange={(e) => setModel(e.target.value)}
-          placeholder="Tiguan..."
-          className="searchbar__input"
-        />
-        <SearchButton />
+      <div className="relative">
+        <button
+          onClick={() => {
+            setIsOpenModel(!isOpenModel);
+            setIsOpenMake(false);
+          }}
+          className="inline-flex items-center overflow-hidden w-[200px] justify-between border-b bg-white"
+        >
+          <p className="px-4 py-2 text-sm/none text-gray-600 ">Model</p>
+
+          <button className="h-full p-2 text-gray-600 ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="size-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </button>
+
+        <div
+          className={`absolute ${
+            isOpenModel ? "opacity-1" : "opacity-0"
+          }  end-0 z-10 mt-2 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg`}
+          role="menu"
+        >
+          <ul className="p-2">
+            <li
+              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              role="menuitem"
+            >
+              Model 1
+            </li>
+
+            <li
+              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              role="menuitem"
+            >
+              Model 2
+            </li>
+
+            <li
+              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              role="menuitem"
+            >
+              Model 3
+            </li>
+
+            <li
+              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              role="menuitem"
+            >
+              Model 4
+            </li>
+          </ul>
+        </div>
       </div>
-      <SearchButton />
-    </form>
+    </div>
   );
 };
 

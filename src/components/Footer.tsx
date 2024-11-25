@@ -2,29 +2,18 @@ import { Link } from "react-router-dom";
 
 const footerLinks = [
   {
-    title: "About",
+    title: "Links",
     links: [
-      { title: "How it works", url: "/" },
-      { title: "Featured", url: "/" },
-      { title: "Partnership", url: "/" },
-      { title: "Bussiness Relation", url: "/" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { title: "Events", url: "/" },
-      { title: "Blog", url: "/" },
-      { title: "Podcast", url: "/" },
-      { title: "Invite a friend", url: "/" },
+      { title: "Home", url: "/" },
+      { title: "Gallery", url: "/gallery" },
+      { title: "Contact Us", url: "/contact" },
+      { title: "About", url: "/about" },
     ],
   },
   {
     title: "Socials",
     links: [
-      { title: "Discord", url: "/" },
       { title: "Instagram", url: "/" },
-      { title: "Twitter", url: "/" },
       { title: "Facebook", url: "/" },
     ],
   },
@@ -37,7 +26,7 @@ const Footer = () => (
         <img
           src="/logo.png"
           alt="logo"
-          width={118}
+          width={150}
           height={18}
           className="object-contain"
         />
