@@ -49,7 +49,7 @@ const NavBar = () => {
   };
 
   return (
-    <header className="w-full bg-[#6F4E37] fixed z-40">
+    <header className="w-full bg-[#c28707] fixed z-40">
       <nav className="max-w-[1440px] mx-auto relative flex items-center sm:px-16 px-6 py-4 md:py-8 bg-transparent">
         {/* Mobile Menu Button */}
         <button

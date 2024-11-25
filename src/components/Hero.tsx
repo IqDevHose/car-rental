@@ -11,7 +11,7 @@ const Hero = () => {
 
   return (
     <div className="bg-[url('/brown.jpg')] bg-cover bg-center h-screen flex justify-center items-center px-[10px] sm:px-[0] relative">
-      <div className="absolute inset-0 bg-black opacity-50"></div>{" "}
+      <div className="absolute inset-0 bg-black opacity-20"></div>
       {/* Dark overlay */}
       <div className="flex-1 pt-48 flex flex-col justify-center items-center relative z-10">
         <h1 className="2xl:text-[62px] text-white xl:text[52px] lg:text[42px] sm:text-[34px] text-[24px] font-extrabold">
