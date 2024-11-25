@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { motion } from "motion/react";
 
 const carData = {
   id: 1,
@@ -49,12 +50,11 @@ export default function CarProfile() {
             />
 
             {/* Gallery */}
-            <div className="flex space-x-4 mt-4 overflow-x-auto">
+            <div className="flex space-x-4 mt-4 overflow-x-scroll overflow-y-hidden">
               {carData.gallery.map((img, index) => (
                 <button
                   key={index + Math.random() * 10}
                   onClick={() => handleImageClick(img)}
-                  className={`transition `}
                 >
                   <img
                     src={img}

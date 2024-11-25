@@ -1,4 +1,5 @@
 import { MouseEventHandler } from "react";
+import { motion } from "framer-motion";
 
 interface CustomButtonProps {
   isDisabled?: boolean;
@@ -18,19 +19,47 @@ const Button = ({
   rightIcon,
   handleClick,
 }: CustomButtonProps) => (
-  <button
+  <motion.button
+    initial={{
+      y: 50,
+      opacity: 0,
+    }}
+    animate={{
+      y: 0,
+      opacity: 1,
+    }}
+    transition={{
+      duration: 1,
+      delay: 2,
+    }}
     disabled={isDisabled}
     type={btnType || "button"}
-    className={`custom-btn ${containerStyles}`}
+    className={`overflow-hidden custom-btn ${containerStyles}`}
     onClick={handleClick}
   >
-    <span className={`flex-1 ${textStyles}`}>{title}</span>
+    <motion.span
+      initial={{
+        y: 50,
+        opacity: 0,
+      }}
+      animate={{
+        y: 0,
+        opacity: 1,
+      }}
+      transition={{
+        duration: 1,
+        delay: 2,
+      }}
+      className={`flex-1 ${textStyles}`}
+    >
+      {title}
+    </motion.span>
     {rightIcon && (
       <div className="relative w-6 h-6">
         <img src={rightIcon} alt="arrow_left" className="object-contain" />
       </div>
     )}
-  </button>
+  </motion.button>
 );
 
 export default Button;
