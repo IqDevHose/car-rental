@@ -65,6 +65,10 @@ const SearchBar = () => {
     <div className="searchbar flex gap-x-4">
       <div className="relative">
         <button
+          onBlur={() => {
+            setIsOpenMake(!isOpenMake);
+            setIsOpenModel(false);
+          }}
           onClick={() => {
             setIsOpenMake(!isOpenMake);
             setIsOpenModel(false);
@@ -141,6 +145,9 @@ const SearchBar = () => {
       </div>
       <div className="relative">
         <button
+          onBlur={() => {
+            setIsOpenModel(false);
+          }}
           onClick={() => {
             setIsOpenModel(!isOpenModel);
             setIsOpenMake(false);
