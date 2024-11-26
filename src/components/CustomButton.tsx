@@ -50,7 +50,7 @@ const Button = ({
         transform
         hover:scale-105
         active:scale-95
-        bg-yellow-600
+        bg-red-600
         text-white
         hover:bg-red-500
         disabled:opacity-50

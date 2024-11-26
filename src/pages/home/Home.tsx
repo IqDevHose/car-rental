@@ -59,7 +59,7 @@ const carData = {
   ],
 };
 
-const cars = [
+export const cars = [
   {
     id: 1,
     image: "/cars/porsche.jpeg",

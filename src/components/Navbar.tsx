@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Globe } from "lucide-react";
 
 const links = [
@@ -40,6 +40,7 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [language, setLanguage] = useState("en");
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation(); // Get the current location (pathname)
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "es" : "en");
@@ -66,12 +67,16 @@ const NavBar = () => {
     };
   }, []);
 
+  const isHomePage = location.pathname === "/"; // Check if we're on the home page
+
   return (
     <header
       className={`w-full fixed z-40 transition-colors duration-300 ${
-        isScrolled
-          ? "backdrop-blur-lg bg-black/80"
-          : "backdrop-blur-md bg-transparent"
+        isHomePage
+          ? isScrolled
+            ? "backdrop-blur-lg bg-black/50"
+            : "backdrop-blur-md bg-transparent"
+          : "backdrop-blur-md bg-gray-700"
       }`}
     >
       <nav className="max-w-[1440px] mx-auto relative flex items-center sm:px-16 px-6 py-4 md:py-8">
