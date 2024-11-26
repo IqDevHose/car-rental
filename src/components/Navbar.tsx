@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Globe } from "lucide-react";
 
@@ -9,7 +9,7 @@ const links = [
   },
   {
     label: "Gallery",
-    link: "/",
+    link: "/gallery",
   },
   {
     label: "Contact",
@@ -39,6 +39,7 @@ const translations = {
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [language, setLanguage] = useState("en");
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "es" : "en");
@@ -48,22 +49,51 @@ const NavBar = () => {
     return translations[language][key] || key;
   };
 
+  // Detect scroll to change navbar styles
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="w-full bg-[#c28707] fixed z-40">
-      <nav className="max-w-[1440px] mx-auto relative flex items-center sm:px-16 px-6 py-4 md:py-8 bg-transparent">
+    <header
+      className={`w-full fixed z-40 transition-colors duration-300 ${
+        isScrolled
+          ? "backdrop-blur-lg bg-black/80"
+          : "backdrop-blur-md bg-transparent"
+      }`}
+    >
+      <nav className="max-w-[1440px] mx-auto relative flex items-center sm:px-16 px-6 py-4 md:py-8">
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden text-white p-2"
+          className={`md:hidden p-2 ${
+            isScrolled ? "text-gray-800" : "text-gray-100"
+          }`}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
         {/* Desktop Left Links */}
-        <ul className="hidden md:flex items-center gap-x-6">
+        <ul className="hidden md:flex items-center gap-x-6 font-bold">
           {links.slice(0, links.length / 2).map((link) => (
             <li
-              className="py-1 px-2 text-white hover:text-gray-300 transition-colors"
+              className={`py-1 px-2 transition-colors ${
+                isScrolled
+                  ? "text-gray-50 hover:text-gray-500"
+                  : "text-gray-100 hover:text-gray-300"
+              }`}
               key={link.link + link.label}
             >
               <Link to={link.link}>{getTranslation(link.label)}</Link>
@@ -72,7 +102,6 @@ const NavBar = () => {
         </ul>
 
         {/* Centered Logo */}
-
         <Link
           to="/"
           className="rounded absolute left-1/2 -translate-x-1/2 flex justify-center items-center"
@@ -87,10 +116,14 @@ const NavBar = () => {
         </Link>
 
         {/* Desktop Right Links */}
-        <ul className="hidden md:flex items-center gap-x-6 ml-auto">
+        <ul className="hidden md:flex items-center gap-x-6 ml-auto font-bold">
           {links.slice(links.length / 2).map((link) => (
             <li
-              className="py-1 px-2 text-white hover:text-gray-300 transition-colors"
+              className={`py-1 px-2 transition-colors ${
+                isScrolled
+                  ? "text-gray-50 hover:text-gray-500"
+                  : "text-gray-100 hover:text-gray-300"
+              }`}
               key={link.link + link.label}
             >
               <Link to={link.link}>{getTranslation(link.label)}</Link>
@@ -100,7 +133,11 @@ const NavBar = () => {
           <li>
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
+              className={`flex items-center gap-2 transition-colors ${
+                isScrolled
+                  ? "text-gray-50 hover:text-gray-500"
+                  : "text-gray-100 hover:text-gray-300"
+              }`}
             >
               <Globe size={20} />
               <span className="uppercase">{language}</span>

@@ -11,10 +11,10 @@ const Hero = () => {
   };
 
   return (
-    <div className="bg-[url('/brown.jpg')] bg-cover bg-center h-screen flex justify-center items-center px-[10px] sm:px-[0] relative">
+    <div className="bg-[url('/benz.avif')] bg-cover bg-center h-screen flex justify-center items-center px-[10px] sm:px-[0] relative">
       <div className="absolute inset-0 bg-black opacity-20"></div>
       {/* Dark overlay */}
-      <div className="flex-1 pt-36 flex flex-col justify-center items-center relative z-10">
+      <div className="flex-1  flex flex-col items-start justify-start mx-52 relative z-10">
         <motion.h1
           initial={{
             y: 50,
@@ -28,7 +28,7 @@ const Hero = () => {
             duration: 1,
             delay: 1,
           }}
-          className="2xl:text-[62px] text-white xl:text[52px] lg:text[42px] sm:text-[34px] text-[24px] font-extrabold"
+          className="2xl:text-[50px] text-white xl:text[52px] lg:text[42px] sm:text-[34px] text-[24px] font-extrabold lg:w-[40rem]"
         >
           Find, book, rent a car—quick and super easy!
         </motion.h1>
@@ -46,7 +46,7 @@ const Hero = () => {
             duration: 1,
             delay: 2,
           }}
-          className="text-[27px] text-white font-light mt-5"
+          className="text-[14px] text-white font-light mt-5 lg:w-[20rem]"
         >
           Streamline your car rental experience with our effortless booking
           process.
