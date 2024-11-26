@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "motion/react";
 
-const carData = {
+export const carData = {
   id: 1,
   name: "Porsche Cayenne",
   priceWithVAT: "2 969 000 CZK",

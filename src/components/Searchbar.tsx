@@ -1,214 +1,150 @@
-"use client";
+import { useState } from "react";
+import { ChevronDown, Search } from "lucide-react";
 
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// Define types for our data structures
+type Vehicle = {
+  make: string;
+  models: string[];
+};
 
-import SearchManufacturer from "../components/SearchManufacturer";
+type SearchBarProps = {
+  onSearch?: (make: string, model: string) => void;
+};
 
-const SearchButton = () => (
-  <button type="submit" className={`-ml-3 z-10 `}>
-    <img
-      src={"/magnifying-glass.svg"}
-      alt={"magnifying glass"}
-      width={40}
-      height={40}
-      className="object-contain"
-    />
-  </button>
-);
+const vehicles: Vehicle[] = [
+  {
+    make: "Toyota",
+    models: ["Camry", "Corolla", "RAV4", "Highlander"],
+  },
+  {
+    make: "Honda",
+    models: ["Civic", "Accord", "CR-V", "Pilot"],
+  },
+  {
+    make: "BMW",
+    models: ["3 Series", "5 Series", "X3", "X5"],
+  },
+  {
+    make: "Mercedes",
+    models: ["C-Class", "E-Class", "GLC", "GLE"],
+  },
+];
 
-const SearchBar = () => {
-  const [manufacturer, setManuFacturer] = useState("");
-  const [model, setModel] = useState("");
-  const [isOpenModel, setIsOpenModel] = useState(false);
-  const [isOpenMake, setIsOpenMake] = useState(false);
+const SearchBar = ({ onSearch }: SearchBarProps) => {
+  const [selectedMake, setSelectedMake] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+  const [makeDropdownOpen, setMakeDropdownOpen] = useState(false);
+  const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
 
-  const navigate = useNavigate();
-
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (manufacturer.trim() === "" && model.trim() === "") {
-      return alert("Please provide some input");
-    }
-
-    updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase());
+  const handleMakeSelect = (make: string) => {
+    setSelectedMake(make);
+    setSelectedModel("");
+    setMakeDropdownOpen(false);
   };
 
-  const updateSearchParams = (model: string, manufacturer: string) => {
-    // Create a new URLSearchParams object using the current URL search parameters
-    const searchParams = new URLSearchParams(window.location.search);
-
-    // Update or delete the 'model' search parameter based on the 'model' value
-    if (model) {
-      searchParams.set("model", model);
-    } else {
-      searchParams.delete("model");
-    }
-
-    // Update or delete the 'manufacturer' search parameter based on the 'manufacturer' value
-    if (manufacturer) {
-      searchParams.set("manufacturer", manufacturer);
-    } else {
-      searchParams.delete("manufacturer");
-    }
-
-    // Generate the new pathname with the updated search parameters
-    const newPathname = `${
-      window.location.pathname
-    }?${searchParams.toString()}`;
-
-    navigate(newPathname);
+  const handleModelSelect = (model: string) => {
+    setSelectedModel(model);
+    setModelDropdownOpen(false);
+    onSearch?.(selectedMake, model);
   };
+
+  const availableModels =
+    vehicles.find((v) => v.make === selectedMake)?.models || [];
 
   return (
-    <div className="searchbar flex gap-x-4">
-      <div className="relative">
+    <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl mx-auto">
+      {/* Make Selector */}
+      <div className="relative flex-1">
         <button
-          onBlur={() => {
-            setIsOpenMake(!isOpenMake);
-            setIsOpenModel(false);
-          }}
           onClick={() => {
-            setIsOpenMake(!isOpenMake);
-            setIsOpenModel(false);
+            setMakeDropdownOpen(!makeDropdownOpen);
+            setModelDropdownOpen(false);
           }}
-          className="inline-flex items-center justify-between overflow-hidden w-[200px] border-b bg-white"
+          className="w-full flex items-center justify-between px-4 py-2 bg-white border rounded-lg shadow-sm hover:bg-gray-50 transition-colors"
         >
-          <p className="px-4 py-2 text-sm/none text-gray-600 ">Make</p>
-
-          <button className="h-full p-2 text-gray-600 ">
-            <span className="sr-only">Menu</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="size-4"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
+          <span className="text-sm text-gray-700">
+            {selectedMake || "Select Make"}
+          </span>
+          <ChevronDown
+            className={`w-4 h-4 text-gray-500 transition-transform ${
+              makeDropdownOpen ? "rotate-180" : ""
+            }`}
+          />
         </button>
 
-        <div
-          className={`absolute ${
-            isOpenMake ? "opacity-1" : "opacity-0"
-          }  end-0 z-10 mt-2 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg`}
-          role="menu"
-        >
-          <ul className="p-2">
-            <li
-              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-              role="menuitem"
-            >
-              Chevrolet
-            </li>
-
-            <li
-              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-              role="menuitem"
-            >
-              Cadillac
-            </li>
-
-            <li
-              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-              role="menuitem"
-            >
-              Dodge
-            </li>
-
-            <li
-              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-              role="menuitem"
-            >
-              Land Rover
-            </li>
-            <li
-              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-              role="menuitem"
-            >
-              Nissan
-            </li>
-            <li
-              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-              role="menuitem"
-            >
-              Lexus
-            </li>
-          </ul>
-        </div>
+        {makeDropdownOpen && (
+          <div className="absolute z-10 w-full mt-2 bg-white border rounded-lg shadow-lg">
+            <ul className="py-1 max-h-60 overflow-auto">
+              {vehicles.map((vehicle) => (
+                <li
+                  key={vehicle.make}
+                  className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => handleMakeSelect(vehicle.make)}
+                >
+                  {vehicle.make}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
-      <div className="relative">
-        <button
-          onBlur={() => {
-            setIsOpenModel(false);
-          }}
-          onClick={() => {
-            setIsOpenModel(!isOpenModel);
-            setIsOpenMake(false);
-          }}
-          className="inline-flex items-center overflow-hidden w-[200px] justify-between border-b bg-white"
-        >
-          <p className="px-4 py-2 text-sm/none text-gray-600 ">Model</p>
 
-          <button className="h-full p-2 text-gray-600 ">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="size-4"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
+      {/* Model Selector */}
+      <div className="relative flex-1">
+        <button
+          onClick={() => {
+            setModelDropdownOpen(!modelDropdownOpen);
+            setMakeDropdownOpen(false);
+          }}
+          disabled={!selectedMake}
+          className={`w-full flex items-center justify-between px-4 py-2 bg-white border rounded-lg shadow-sm transition-colors
+            ${
+              selectedMake
+                ? "hover:bg-gray-50"
+                : "opacity-50 cursor-not-allowed"
+            }`}
+        >
+          <span className="text-sm text-gray-700">
+            {selectedModel || "Select Model"}
+          </span>
+          <ChevronDown
+            className={`w-4 h-4 text-gray-500 transition-transform ${
+              modelDropdownOpen ? "rotate-180" : ""
+            }`}
+          />
         </button>
 
-        <div
-          className={`absolute ${
-            isOpenModel ? "opacity-1" : "opacity-0"
-          }  end-0 z-10 mt-2 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg`}
-          role="menu"
-        >
-          <ul className="p-2">
-            <li
-              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-              role="menuitem"
-            >
-              Model 1
-            </li>
-
-            <li
-              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-              role="menuitem"
-            >
-              Model 2
-            </li>
-
-            <li
-              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-              role="menuitem"
-            >
-              Model 3
-            </li>
-
-            <li
-              className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-              role="menuitem"
-            >
-              Model 4
-            </li>
-          </ul>
-        </div>
+        {modelDropdownOpen && (
+          <div className="absolute z-10 w-full mt-2 bg-white border rounded-lg shadow-lg">
+            <ul className="py-1 max-h-60 overflow-auto">
+              {availableModels.map((model) => (
+                <li
+                  key={model}
+                  className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => handleModelSelect(model)}
+                >
+                  {model}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
+
+      {/* Search Button */}
+      <button
+        onClick={() => onSearch?.(selectedMake, selectedModel)}
+        disabled={!selectedMake || !selectedModel}
+        className={`px-4 py-2 rounded-lg flex items-center justify-center
+          ${
+            selectedMake && selectedModel
+              ? "bg-gray-700 hover:bg-blue-800 text-white"
+              : "bg-gray-100 text-gray-400 cursor-not-allowed"
+          }
+        `}
+      >
+        <Search className="w-4 h-4" />
+      </button>
     </div>
   );
 };

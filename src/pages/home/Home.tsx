@@ -200,11 +200,6 @@ export default function Home() {
       <div className="mt-12 padding-x padding-y max-width" id="discover">
         <div className="home__filters">
           <SearchBar />
-
-          <div className="home__filter-container">
-            <CustomFilter title="fuel" options={fuels} />
-            <CustomFilter title="year" options={yearsOfProduction} />
-          </div>
         </div>
 
         <section>
