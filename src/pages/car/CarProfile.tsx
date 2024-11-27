@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 export const carData = {
   id: 1,
   name: "Porsche Cayenne",
-  priceWithVAT: "2 969 000 CZK",
+  priceWithVAT: "190,000",
   priceWithoutVAT: "2 453 719 CZK",
   mileage: "13 000 km",
   category: "Osobní",
@@ -86,7 +86,7 @@ export default function CarProfile() {
 
                 <div className="mt-6 space-y-2">
                   <p className="text-3xl font-semibold text-blue-600">
-                    {carData.priceWithVAT}
+                    {carData.priceWithVAT} IQD
                   </p>
                   <p className="text-gray-500 text-sm">
                     Without VAT: {carData.priceWithoutVAT}
