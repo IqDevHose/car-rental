@@ -5,7 +5,7 @@ import SearchBar from "@/components/Searchbar";
 import CustomFilter from "@/components/CustomFilter";
 import MostRented from "@/components/MostRented";
 import { useTranslation } from "react-i18next";
-
+import { motion } from "framer-motion";
 export const yearsOfProduction = [
   { title: "Year", value: "" },
   { title: "2015", value: "2015" },
@@ -162,90 +162,151 @@ export default function Home() {
       nextSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+  const fadeIn = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: 20 },
+  };
+
+  const stagger = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
 
   return (
-    <main className="overflow-hidden">
+    <main className="overflow-hidden bg-gray-50">
       <Hero />
-      <div className="padding-x max-width">
-        <div className="home__text-container pt-8">
-          <h1 className="text-4xl font-extrabold">{t("Most Rented")}</h1>
-        </div>
-        <MostRented />
-      </div>
 
-      <div className="padding-x max-width">
-        <div className="home__text-container pt-8">
-          <h1 className="text-4xl font-extrabold">{t("Explore Brands")}</h1>
-          <p className="">{t("Explore out cars you might like")}</p>
-        </div>
+      <section className="py-16 bg-white">
+        <motion.div
+          className="padding-x max-width"
+          variants={fadeIn}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
+          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-8">
+            {t("Most Rented")}
+          </h1>
+          <MostRented />
+        </motion.div>
+      </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-          {logos.map((logo) => (
-            <button
-              onClick={handleScroll}
-              key={logo.id + Math.random() * 10}
-              className="relative bg-white flex justify-center items-center py-4 shadow-md overflow-hidden border border-gray-200"
-            >
-              <img
-                src={logo.img}
-                alt={logo.name}
-                width={200}
-                height={200}
-                className=" hover:scale-[1.2] h-[100px] transition py-2 ease-in-out cursor-pointer object-contain"
-              />
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-12 padding-x padding-y max-width" id="discover">
-        <div className="home__filters">
-          <SearchBar />
-        </div>
-
-        <section>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
-            {cars.map((car) => (
-              <Link
-                to={`car/${car.id}`}
-                key={car.id + Math.random() * 10}
-                className="relative bg-white shadow-md overflow-hidden border border-gray-200"
-              >
-                <div className="overflow-hidden">
-                  <img
-                    src={car.image}
-                    alt={car.title}
-                    width={400}
-                    height={300}
-                    className="w-full object-cover hover:scale-[1.2] transition duration-[1s] ease-in-out"
-                  />
-                </div>
-                <div className="p-4">
-                  <h2 className="text-lg font-bold text-gray-900">
-                    {t(car.title)}
-                  </h2>
-                  <p className="text-sm text-gray-600 mt-1">
-                    {t(`${car.year}`)} / {t(car.mileage)}
-                  </p>
-                  <div className="mt-3">
-                    <p className="text-xl font-semibold text-gray-900">
-                      {t(car.priceWithVAT)}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      {t(car.priceWithoutVAT)}
-                    </p>
-                  </div>
-                </div>
-                <div className=" absolute bottom-0 right-0">
-                  <button className="p-4 w-full text-sm text-white bg-red-500 hover:bg-red-600 py-2">
-                    {"->"}
-                  </button>
-                </div>
-              </Link>
-            ))}
+      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+        <motion.div
+          className="padding-x max-width"
+          variants={fadeIn}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
+          <div className="text- mb-12">
+            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+              {t("Explore Brands")}
+            </h1>
+            <p className="text-gray-600 mt-2">
+              {t("Explore out cars you might like")}
+            </p>
           </div>
-        </section>
-      </div>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            variants={stagger}
+          >
+            {logos.map((logo) => (
+              <motion.button
+                variants={fadeIn}
+                onClick={handleScroll}
+                key={logo.id}
+                className="group bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <motion.img
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  src={logo.img}
+                  alt={logo.name}
+                  className="h-[100px] w-auto mx-auto object-contain"
+                />
+              </motion.button>
+            ))}
+          </motion.div>
+        </motion.div>
+      </section>
+
+      <section className="py-16 bg-white" id="discover">
+        <motion.div
+          className="padding-x max-width"
+          variants={fadeIn}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
+          <div className="mb-12">
+            <SearchBar />
+          </div>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            variants={stagger}
+          >
+            {cars.map((car) => (
+              <motion.div variants={fadeIn} key={car.id} className="group">
+                <Link
+                  to={`car/${car.id}`}
+                  className="block bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="overflow-hidden">
+                    <motion.img
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.4 }}
+                      src={car.image}
+                      alt={car.title}
+                      className="w-full h-56 object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h2 className="text-xl font-bold text-gray-900">
+                      {t(car.title)}
+                    </h2>
+                    <p className="text-gray-600 mt-2">
+                      {t(`${car.year}`)} / {t(car.mileage)}
+                    </p>
+                    <div className="mt-4">
+                      <p className="text-2xl font-semibold text-gray-900">
+                        {t(car.priceWithVAT)}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {t(car.priceWithoutVAT)}
+                      </p>
+                    </div>
+                    <motion.div className="mt-6" whileHover={{ x: 5 }}>
+                      <span className="inline-flex items-center text-red-500 font-semibold">
+                        {t("View Details")}
+                        <svg
+                          className="w-5 h-5 ml-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
+                        </svg>
+                      </span>
+                    </motion.div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </section>
     </main>
   );
 }
