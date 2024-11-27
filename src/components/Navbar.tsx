@@ -62,7 +62,7 @@ const NavBar = () => {
           : "backdrop-blur-md bg-gray-700"
       }`}
     >
-      <nav className="max-w-[1440px] mx-auto relative flex items-center sm:px-16 px-6 py-4 md:py-8">
+      <nav className="container mx-auto relative flex items-center py-4 md:py-8">
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -136,7 +136,7 @@ const NavBar = () => {
         {/* Mobile Menu */}
         <div
           className={`
-          md:hidden absolute inset-0 top-[72px] w-full h-screen bg-black/95 transition-transform duration-300
+          md:hidden absolute -inset-14 top-[72px]  h-screen bg-black/95 transition-transform duration-300
           ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
         `}
         >

@@ -11,7 +11,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center px-[10px] sm:px-[0] relative">
+    <div className="h-screen flex justify-center items-center px-[10px] sm:px-[0] relative ">
       {/* Reversed Background Image */}
       <div className="absolute inset-0 bg-[url('/ray.avif')] bg-cover bg-center transform scale-x-[-1]"></div>
 
@@ -19,7 +19,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black opacity-20"></div>
 
       {/* Content */}
-      <div className="flex-1 flex flex-col justify-center items-center md:items-start md:justify-start md:mx-52 relative z-10">
+      <div className="flex-1 flex flex-col justify-center items-center md:items-start md:justify-start mx-auto container relative z-10">
         <motion.h1
           initial={{
             y: 50,
