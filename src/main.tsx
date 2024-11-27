@@ -3,7 +3,8 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
-import "./i18n"; // Import the i18n configuration
+import "./utils/i18n.ts"; // Import the i18n configuration
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>

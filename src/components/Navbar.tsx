@@ -136,9 +136,9 @@ const NavBar = () => {
         {/* Mobile Menu */}
         <div
           className={`
-            md:hidden fixed inset-0 top-[72px] bg-black/95 transition-transform duration-300
-            ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
-          `}
+          md:hidden absolute inset-0 top-[72px] w-full h-screen bg-black/95 transition-transform duration-300
+          ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
+        `}
         >
           <ul className="flex flex-col items-center pt-8 gap-y-6">
             {links.map((link) => (
