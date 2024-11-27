@@ -28,11 +28,11 @@ const translations = {
     Contact: "Contact",
     About: "About",
   },
-  es: {
-    Home: "Inicio",
-    Gallery: "Galería",
-    Contact: "Contacto",
-    About: "Acerca",
+  ar: {
+    Home: "الرئيسية",
+    Gallery: "المعرض",
+    Contact: "تواصل معنا",
+    About: "من نحن",
   },
 };
 
@@ -43,10 +43,10 @@ const NavBar = () => {
   const location = useLocation(); // Get the current location (pathname)
 
   const toggleLanguage = () => {
-    setLanguage(language === "en" ? "es" : "en");
+    setLanguage(language === "en" ? "ar" : "en");
   };
 
-  const getTranslation = (key) => {
+  const getTranslation = (key: any) => {
     return translations[language][key] || key;
   };
 
