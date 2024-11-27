@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Globe } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const links = [
   {
@@ -21,36 +22,18 @@ const links = [
   },
 ];
 
-const translations = {
-  en: {
-    Home: "Home",
-    Gallery: "Gallery",
-    Contact: "Contact",
-    About: "About",
-  },
-  ar: {
-    Home: "الرئيسية",
-    Gallery: "المعرض",
-    Contact: "تواصل معنا",
-    About: "من نحن",
-  },
-};
-
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [language, setLanguage] = useState("en");
+  // const [language, setLanguage] = useState("en");
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation(); // Get the current location (pathname)
+  const location = useLocation();
+  const { t, i18n } = useTranslation();
 
   const toggleLanguage = () => {
-    setLanguage(language === "en" ? "ar" : "en");
+    const newLang = i18n.language === "en" ? "ar" : "en";
+    i18n.changeLanguage(newLang);
   };
 
-  const getTranslation = (key: any) => {
-    return translations[language][key] || key;
-  };
-
-  // Detect scroll to change navbar styles
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -67,7 +50,7 @@ const NavBar = () => {
     };
   }, []);
 
-  const isHomePage = location.pathname === "/"; // Check if we're on the home page
+  const isHomePage = location.pathname === "/";
 
   return (
     <header
@@ -96,12 +79,12 @@ const NavBar = () => {
             <li
               className={`py-1 px-2 transition-colors ${
                 isScrolled
-                  ? "text-gray-50 hover:text-gray-500"
+                  ? "text-gray-50 hover:text-gray-300"
                   : "text-gray-100 hover:text-gray-300"
               }`}
               key={link.link + link.label}
             >
-              <Link to={link.link}>{getTranslation(link.label)}</Link>
+              <Link to={link.link}>{t(link.label)}</Link>
             </li>
           ))}
         </ul>
@@ -126,12 +109,12 @@ const NavBar = () => {
             <li
               className={`py-1 px-2 transition-colors ${
                 isScrolled
-                  ? "text-gray-50 hover:text-gray-500"
+                  ? "text-gray-50 hover:text-gray-300"
                   : "text-gray-100 hover:text-gray-300"
               }`}
               key={link.link + link.label}
             >
-              <Link to={link.link}>{getTranslation(link.label)}</Link>
+              <Link to={link.link}>{t(link.label)}</Link>
             </li>
           ))}
           {/* Language Toggle Button */}
@@ -140,12 +123,12 @@ const NavBar = () => {
               onClick={toggleLanguage}
               className={`flex items-center gap-2 transition-colors ${
                 isScrolled
-                  ? "text-gray-50 hover:text-gray-500"
+                  ? "text-gray-50 hover:text-gray-300"
                   : "text-gray-100 hover:text-gray-300"
               }`}
             >
               <Globe size={20} />
-              <span className="uppercase">{language}</span>
+              <span className="uppercase">{i18n.language}</span>
             </button>
           </li>
         </ul>
@@ -164,7 +147,7 @@ const NavBar = () => {
                 key={link.link + link.label}
                 onClick={() => setIsMenuOpen(false)}
               >
-                <Link to={link.link}>{getTranslation(link.label)}</Link>
+                <Link to={link.link}>{t(link.label)}</Link>
               </li>
             ))}
             {/* Mobile Language Toggle Button */}
@@ -174,7 +157,7 @@ const NavBar = () => {
                 className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
               >
                 <Globe size={20} />
-                <span className="uppercase">{language}</span>
+                <span className="uppercase">{i18n.language}</span>
               </button>
             </li>
           </ul>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 export const carData = {
   id: 1,
@@ -29,6 +30,7 @@ export const carData = {
 };
 
 export default function CarProfile() {
+  const { t } = useTranslation();
   const [selectedImage, setSelectedImage] = useState(carData.image);
   const handleImageClick = (img: string) => {
     console.log(img);
@@ -45,7 +47,7 @@ export default function CarProfile() {
               <div className="relative aspect-[16/10] rounded-2xl overflow-hidden group cursor-pointer">
                 <motion.img
                   src={selectedImage}
-                  alt={carData.name}
+                  alt={t(carData.name)}
                   initial={{ scale: 1 }}
                   animate={{ scale: 1 }}
                   whileHover={{ scale: 1.03 }}
@@ -61,15 +63,15 @@ export default function CarProfile() {
                     whileHover={{ y: -2 }}
                     onClick={() => handleImageClick(img)}
                     className={`relative aspect-square rounded-xl overflow-hidden 
-                    ${
-                      selectedImage === img
-                        ? "ring-2 ring-blue-500 ring-offset-2"
-                        : "hover:ring-2 hover:ring-blue-300 hover:ring-offset-2"
-                    } transition-all duration-200`}
+                  ${
+                    selectedImage === img
+                      ? "ring-2 ring-blue-500 ring-offset-2"
+                      : "hover:ring-2 hover:ring-blue-300 hover:ring-offset-2"
+                  } transition-all duration-200`}
                   >
                     <img
                       src={img}
-                      alt={`Gallery ${index + 1}`}
+                      alt={t(`Gallery Image ${index + 1}`)}
                       className="w-full h-full object-cover"
                     />
                   </motion.button>
@@ -81,15 +83,15 @@ export default function CarProfile() {
             <div className="lg:w-1/3 p-8 bg-gradient-to-b from-gray-50 to-white">
               <div className="sticky top-8">
                 <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
-                  {carData.name}
+                  {t(carData.name)}
                 </h1>
 
                 <div className="mt-6 space-y-2">
                   <p className="text-3xl font-semibold text-blue-600">
-                    {carData.priceWithVAT} IQD
+                    {t(carData.priceWithVAT)} IQD
                   </p>
                   <p className="text-gray-500 text-sm">
-                    Without VAT: {carData.priceWithoutVAT}
+                    {t("Without VAT")}: {t(carData.priceWithoutVAT)}
                   </p>
                 </div>
 
@@ -98,21 +100,21 @@ export default function CarProfile() {
                   className="mt-8 flex items-center justify-center w-full gap-3 px-6 py-4 text-white bg-green-500 rounded-xl hover:bg-green-600 transition-all duration-200 transform hover:-translate-y-0.5 shadow-lg hover:shadow-xl"
                 >
                   <img src="/whatsapp.png" alt="WhatsApp" className="w-6 h-6" />
-                  <span className="font-semibold">Book Now</span>
+                  <span className="font-semibold">{t("Book Now")}</span>
                 </Link>
 
                 <div className="mt-10">
                   <h2 className="text-xl font-semibold text-gray-900 mb-6">
-                    Car Specifications
+                    {t("Car Specifications")}
                   </h2>
                   <div className="space-y-4">
                     {Object.entries({
-                      Category: carData.category,
-                      Fuel: carData.fuel,
-                      Mileage: carData.mileage,
-                      Color: carData.color,
-                      Power: carData.power,
-                      "Engine Displacement": carData.engineDisplacement,
+                      [t("Category")]: carData.category,
+                      [t("Fuel")]: carData.fuel,
+                      [t("Mileage")]: carData.mileage,
+                      [t("Color")]: carData.color,
+                      [t("Power")]: carData.power,
+                      [t("Engine Displacement")]: carData.engineDisplacement,
                     }).map(([key, value]) => (
                       <div
                         key={key}
@@ -122,7 +124,7 @@ export default function CarProfile() {
                           {key}
                         </span>
                         <span className="font-medium text-gray-900">
-                          {value}
+                          {t(value)}
                         </span>
                       </div>
                     ))}
@@ -135,29 +137,33 @@ export default function CarProfile() {
           {/* Rental Terms */}
           <div className="p-8 bg-gradient-to-b from-white to-gray-50 border-t border-gray-200">
             <h2 className="text-2xl font-bold text-gray-900 mb-8">
-              Rental Terms & Conditions
+              {t("Rental Terms & Conditions")}
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {[
                 {
-                  title: "Minimum Age Requirement",
-                  description:
-                    "Must be at least 21 years old. Additional fee may apply for drivers under 25 years.",
+                  title: t("Minimum Age Requirement"),
+                  description: t(
+                    "Must be at least 21 years old. Additional fee may apply for drivers under 25 years."
+                  ),
                 },
                 {
-                  title: "Driver's License",
-                  description:
-                    "Valid license required. International customers must provide valid international permit if required.",
+                  title: t("Driver's License"),
+                  description: t(
+                    "Valid license required. International customers must provide valid international permit if required."
+                  ),
                 },
                 {
-                  title: "Identification",
-                  description:
-                    "Valid government-issued photo ID required for verification.",
+                  title: t("Identification"),
+                  description: t(
+                    "Valid government-issued photo ID required for verification."
+                  ),
                 },
                 {
-                  title: "Reservation Policy",
-                  description:
-                    "Confirmed reservation does not guarantee availability for late arrivals. Please inform of delays.",
+                  title: t("Reservation Policy"),
+                  description: t(
+                    "Confirmed reservation does not guarantee availability for late arrivals. Please inform of delays."
+                  ),
                 },
               ].map((term, index) => (
                 <motion.div

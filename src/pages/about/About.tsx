@@ -1,16 +1,21 @@
+import { useTranslation } from "react-i18next";
+
 const About = () => {
+  const { t } = useTranslation();
+
   const stats = [
-    { number: "15+", text: "Years of Experience" },
-    { number: "500+", text: "Cars Sold" },
-    { number: "100%", text: "Client Satisfaction" },
-    { number: "24/7", text: "Support Available" },
+    { number: "15+", text: t("Years of Experience") },
+    { number: "500+", text: t("Cars Sold") },
+    { number: "100%", text: t("Client Satisfaction") },
+    { number: "24/7", text: t("Support Available") },
   ];
 
   const values = [
     {
-      title: "Excellence",
-      description:
-        "We source only the finest luxury vehicles, ensuring every car meets our stringent quality standards.",
+      title: t("Excellence"),
+      description: t(
+        "We source only the finest luxury vehicles, ensuring every car meets our stringent quality standards."
+      ),
       icon: () => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -29,9 +34,10 @@ const About = () => {
       ),
     },
     {
-      title: "Integrity",
-      description:
-        "Transparency and honesty are at the core of every transaction and customer interaction.",
+      title: t("Integrity"),
+      description: t(
+        "Transparency and honesty are at the core of every transaction and customer interaction."
+      ),
       icon: () => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -50,9 +56,10 @@ const About = () => {
       ),
     },
     {
-      title: "Innovation",
-      description:
-        "We embrace the latest automotive technologies and offer cutting-edge vehicles to our clients.",
+      title: t("Innovation"),
+      description: t(
+        "We embrace the latest automotive technologies and offer cutting-edge vehicles to our clients."
+      ),
       icon: () => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -75,17 +82,17 @@ const About = () => {
   const team = [
     {
       name: "John Smith",
-      position: "CEO & Founder",
+      position: t("CEO & Founder"),
       image: "https://picsum.photos/200",
     },
     {
       name: "Sarah Johnson",
-      position: "Sales Director",
+      position: t("Sales Director"),
       image: "https://picsum.photos/200",
     },
     {
       name: "Michael Brown",
-      position: "Head of Service",
+      position: t("Head of Service"),
       image: "https://picsum.photos/200",
     },
   ];
@@ -96,10 +103,11 @@ const About = () => {
         {/* Overlay for darkening */}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-          <h1 className="text-5xl font-extrabold mb-4">About Us</h1>
+          <h1 className="text-5xl font-extrabold mb-4">{t("About Us")}</h1>
           <p className="text-xl max-w-2xl text-center">
-            Delivering exceptional luxury vehicles and outstanding service since
-            2008
+            {t(
+              "Delivering exceptional luxury vehicles and outstanding service since 2008"
+            )}
           </p>
         </div>
       </div>
@@ -108,30 +116,27 @@ const About = () => {
       <section className="padding-x max-width py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-bold mb-6">Our Story</h2>
+            <h2 className="text-3xl font-bold mb-6">{t("Our Story")}</h2>
             <p className="text-gray-600 mb-4">
-              Founded in 2008, we've established ourselves as a leading luxury
-              car dealership in the Czech Republic. Our journey began with a
-              simple vision: to provide exceptional vehicles and unparalleled
-              service to discerning clients.
+              {t(
+                "Founded in 2008, we've established ourselves as a leading luxury car dealership in the Czech Republic. Our journey began with a simple vision: to provide exceptional vehicles and unparalleled service to discerning clients."
+              )}
             </p>
             <p className="text-gray-600 mb-4">
-              Over the years, we've built strong relationships with premium
-              manufacturers and developed a reputation for excellence in the
-              luxury automotive market. Our commitment to quality and customer
-              satisfaction has made us the preferred choice for luxury car
-              enthusiasts.
+              {t(
+                "Over the years, we've built strong relationships with premium manufacturers and developed a reputation for excellence in the luxury automotive market. Our commitment to quality and customer satisfaction has made us the preferred choice for luxury car enthusiasts."
+              )}
             </p>
             <p className="text-gray-600">
-              Today, we continue to expand our collection of premium vehicles
-              while maintaining the personalized service that has been our
-              hallmark since day one.
+              {t(
+                "Today, we continue to expand our collection of premium vehicles while maintaining the personalized service that has been our hallmark since day one."
+              )}
             </p>
           </div>
           <div className="relative h-[400px]">
             <img
               src="/cars/lamborghini.jpeg"
-              alt="Our Showroom"
+              alt={t("Our Showroom")}
               className="object-cover rounded-lg"
             />
           </div>
@@ -145,9 +150,9 @@ const About = () => {
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <h3 className="text-4xl font-bold text-red-500 mb-2">
-                  {stat.number}
+                  {t(stat.number)}
                 </h3>
-                <p className="text-gray-600">{stat.text}</p>
+                <p className="text-gray-600">{t(stat.text)}</p>
               </div>
             ))}
           </div>
@@ -156,7 +161,9 @@ const About = () => {
 
       {/* Our Values Section */}
       <section className="padding-x max-width py-16">
-        <h2 className="text-3xl font-bold text-center mb-12">Our Values</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">
+          {t("Our Values")}
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {values.map((value, index) => (
             <div
@@ -166,8 +173,8 @@ const About = () => {
               <div className="text-red-500 mb-4">
                 <value.icon />
               </div>
-              <h3 className="text-xl font-bold mb-2">{value.title}</h3>
-              <p className="text-gray-600">{value.description}</p>
+              <h3 className="text-xl font-bold mb-2">{t(value.title)}</h3>
+              <p className="text-gray-600">{t(value.description)}</p>
             </div>
           ))}
         </div>
@@ -177,7 +184,7 @@ const About = () => {
       <section className="bg-gray-100 py-16">
         <div className="padding-x max-width">
           <h2 className="text-3xl font-bold text-center mb-12">
-            Our Leadership Team
+            {t("Our Leadership Team")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {team.map((member, index) => (
@@ -188,12 +195,12 @@ const About = () => {
                 <div className="relative w-48 h-48 mx-auto mb-4">
                   <img
                     src={member.image}
-                    alt={member.name}
+                    alt={t(member.name)}
                     className="object-cover rounded-full bg-gray-300"
                   />
                 </div>
-                <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                <p className="text-gray-600">{member.position}</p>
+                <h3 className="text-xl font-bold mb-1">{t(member.name)}</h3>
+                <p className="text-gray-600">{t(member.position)}</p>
               </div>
             ))}
           </div>

@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import SearchBar from "@/components/Searchbar";
 import CustomFilter from "@/components/CustomFilter";
 import MostRented from "@/components/MostRented";
+import { useTranslation } from "react-i18next";
 
 export const yearsOfProduction = [
   { title: "Year", value: "" },
@@ -148,7 +149,7 @@ const logos = [
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState(carData.image);
-
+  const { t } = useTranslation();
   const handleImageClick = (img: string) => {
     console.log(img);
     setSelectedImage(img);
@@ -167,15 +168,15 @@ export default function Home() {
       <Hero />
       <div className="padding-x max-width">
         <div className="home__text-container pt-8">
-          <h1 className="text-4xl font-extrabold">Most Rented</h1>
+          <h1 className="text-4xl font-extrabold">{t("Most Rented")}</h1>
         </div>
         <MostRented />
       </div>
 
       <div className="padding-x max-width">
         <div className="home__text-container pt-8">
-          <h1 className="text-4xl font-extrabold">Explore Brands</h1>
-          <p className="">Explore out cars you might like</p>
+          <h1 className="text-4xl font-extrabold">{t("Explore Brands")}</h1>
+          <p className="">{t("Explore out cars you might like")}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
@@ -221,17 +222,17 @@ export default function Home() {
                 </div>
                 <div className="p-4">
                   <h2 className="text-lg font-bold text-gray-900">
-                    {car.title}
+                    {t(car.title)}
                   </h2>
                   <p className="text-sm text-gray-600 mt-1">
-                    {car.year} / {car.mileage}
+                    {t(`${car.year}`)} / {t(car.mileage)}
                   </p>
                   <div className="mt-3">
                     <p className="text-xl font-semibold text-gray-900">
-                      {car.priceWithVAT}
+                      {t(car.priceWithVAT)}
                     </p>
                     <p className="text-sm text-gray-500">
-                      {car.priceWithoutVAT}
+                      {t(car.priceWithoutVAT)}
                     </p>
                   </div>
                 </div>

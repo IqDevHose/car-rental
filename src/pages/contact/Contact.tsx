@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,7 +28,7 @@ const Contact = () => {
 
   const contactInfo = [
     {
-      title: "Visit Our Showroom",
+      title: t("Visit Our Showroom"),
       content: "123 Car Avenue, Prague, Czech Republic",
       icon: () => (
         <svg
@@ -51,7 +54,7 @@ const Contact = () => {
       ),
     },
     {
-      title: "Call Us",
+      title: t("Call Us"),
       content: "+420 123 456 789",
       icon: () => (
         <svg
@@ -71,7 +74,7 @@ const Contact = () => {
       ),
     },
     {
-      title: "Email Us",
+      title: t("Email Us"),
       content: "info@luxurycars.cz",
       icon: () => (
         <svg
@@ -98,18 +101,18 @@ const Contact = () => {
         {/* Overlay for darkening */}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-          <h1 className="text-5xl font-extrabold mb-4">Contact Us</h1>
+          <h1 className="text-5xl font-extrabold mb-4">{t("Contact Us")}</h1>
         </div>
       </div>
 
       <div className="padding-x max-width py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
-            <h2 className="text-3xl font-bold mb-6">Get in Touch</h2>
+            <h2 className="text-3xl font-bold mb-6">{t("Get in Touch")}</h2>
             <p className="text-gray-600 mb-8">
-              Have a question about our luxury vehicles? We're here to help.
-              Fill out the form below and we'll get back to you as soon as
-              possible.
+              {t(
+                "Have a question about our luxury vehicles? We're here to help. Fill out the form below and we'll get back to you as soon as possible."
+              )}
             </p>
 
             <div className="space-y-6">
@@ -131,7 +134,7 @@ const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Name
+                  {t("Name")}
                 </label>
                 <input
                   type="text"
@@ -145,7 +148,7 @@ const Contact = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
+                  {t("Email")}
                 </label>
                 <input
                   type="email"
@@ -159,7 +162,7 @@ const Contact = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone
+                  {t("Phone")}
                 </label>
                 <input
                   type="tel"
@@ -172,7 +175,7 @@ const Contact = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Subject
+                  {t("Subject")}
                 </label>
                 <select
                   name="subject"
@@ -180,18 +183,22 @@ const Contact = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                 >
-                  <option value="General Inquiry">General Inquiry</option>
-                  <option value="Vehicle Information">
-                    Vehicle Information
+                  <option value="General Inquiry">
+                    {t("General Inquiry")}
                   </option>
-                  <option value="Test Drive Request">Test Drive Request</option>
-                  <option value="Price Quote">Price Quote</option>
+                  <option value="Vehicle Information">
+                    {t("Vehicle Information")}
+                  </option>
+                  <option value="Test Drive Request">
+                    {t("Test Drive Request")}
+                  </option>
+                  <option value="Price Quote">{t("Price Quote")}</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Message
+                  {t("Message")}
                 </label>
                 <textarea
                   name="message"
@@ -207,7 +214,7 @@ const Contact = () => {
                 type="submit"
                 className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"
               >
-                Send Message
+                {t("Send Message")}
               </button>
             </form>
           </div>

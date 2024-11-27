@@ -3,6 +3,7 @@ import { fuels, yearsOfProduction } from "../home/Home"; // Import fuels and yea
 import SearchBar from "@/components/Searchbar";
 import CustomFilter from "@/components/CustomFilter";
 import { ArrowRight, Calendar, Gauge, Info } from "lucide-react";
+import { useTranslation } from "react-i18next";
 function Gallery() {
   const carData = [
     {
@@ -194,6 +195,8 @@ function Gallery() {
     },
   ];
 
+  const { t } = useTranslation();
+
   return (
     <div className="container mx-auto">
       <div className="items-center justify-between pt-32 flex">
@@ -221,16 +224,16 @@ function Gallery() {
                 {/* Header */}
                 <div className="mb-4">
                   <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                    {car.name}
+                    {t(car.name)}
                   </h2>
                   <div className="flex items-center gap-3 text-sm text-gray-600">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
-                      {car.inOperationSince}
+                      {t(car.inOperationSince)}
                     </span>
                     <span className="flex items-center gap-1">
                       <Gauge className="w-4 h-4" />
-                      {car.mileage}
+                      {t(car.mileage)}
                     </span>
                   </div>
                 </div>
@@ -239,23 +242,24 @@ function Gallery() {
                 <div className="mb-6 pb-6 border-b border-gray-100 ">
                   <div className="flex  gap-2 flex-col">
                     <p className="text-xl font-bold text-gray-900">
-                      {car.priceWithVAT} IQD
+                      {t(car.priceWithVAT)} IQD
                     </p>
+                    {/* Uncomment if VAT details are needed */}
                     {/* <p className="text-sm text-gray-500">
-                      excl. VAT {car.priceWithoutVAT}
-                    </p> */}
+                    {t("excl. VAT")} {t(car.priceWithoutVAT)}
+                  </p> */}
                   </div>
                 </div>
 
                 {/* Specifications Grid */}
                 <div className="gap-4 mb-6">
                   <div className="">
-                    <InfoLabel label={"Body"} value={car.body} />
-                    <InfoLabel label={"Fuel"} value={car.fuel} />
-                    <InfoLabel label={"Power"} value={car.power} />
+                    <InfoLabel label={t("Body")} value={t(car.body)} />
+                    <InfoLabel label={t("Fuel")} value={t(car.fuel)} />
+                    <InfoLabel label={t("Power")} value={t(car.power)} />
                     <InfoLabel
-                      label={"Engine"}
-                      value={car.engineDisplacement}
+                      label={t("Engine")}
+                      value={t(car.engineDisplacement)}
                     />
                   </div>
                 </div>
@@ -263,7 +267,7 @@ function Gallery() {
                 {/* Button */}
                 <Link to={`/car/{car.id}`} key={car.id + Math.random() * 10}>
                   <button className="w-full flex items-center justify-center gap-2 bg-gray-700  hover:bg-blue-800 text-white py-3 px-4  font-medium transition-all duration-300">
-                    View Details
+                    {t("View Details")}
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </Link>
