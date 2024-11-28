@@ -159,7 +159,13 @@ export default function Home() {
     const nextSection = document.getElementById("discover");
 
     if (nextSection) {
-      nextSection.scrollIntoView({ behavior: "smooth" });
+      const navbarHeight = 80;
+      const offsetTop = nextSection.offsetTop - navbarHeight;
+
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth",
+      });
     }
   };
   const fadeIn = {
@@ -177,7 +183,7 @@ export default function Home() {
   };
 
   return (
-    <main className="overflow-hidden bg-gray-50">
+    <main className="overflow-hidden ">
       <Hero />
 
       <section className="py-16 bg-white">
@@ -188,14 +194,12 @@ export default function Home() {
           whileInView="animate"
           viewport={{ once: true }}
         >
-          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-8">
-            {t("Most Rented")}
-          </h1>
+          <SectionHeader number="01" title={t("Most Rented")} />
           <MostRented />
         </motion.div>
       </section>
 
-      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-16 bg-neutral-100">
         <motion.div
           className="padding-x max-width"
           variants={fadeIn}
@@ -203,13 +207,12 @@ export default function Home() {
           whileInView="animate"
           viewport={{ once: true }}
         >
-          <div className="text- mb-12">
-            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-              {t("Explore Brands")}
-            </h1>
-            <p className="text-gray-600 mt-2">
-              {t("Explore out cars you might like")}
-            </p>
+          <div className="mb-8">
+            <SectionHeader
+              number="02"
+              title={t("Explore Brands")}
+              subTitle={t("Explore out cars you might like")}
+            />
           </div>
 
           <motion.div
@@ -244,7 +247,10 @@ export default function Home() {
           whileInView="animate"
           viewport={{ once: true }}
         >
-          <div className="mb-12">
+          <div className="mb-4">
+            <SectionHeader number="03" title={t("Our Cars")} />
+          </div>
+          <div className="mb-4">
             <SearchBar />
           </div>
 
@@ -310,3 +316,21 @@ export default function Home() {
     </main>
   );
 }
+
+type sectionType = {
+  number: string;
+  title: string;
+  subTitle?: string;
+};
+const SectionHeader = ({ number, title, subTitle }: sectionType) => {
+  return (
+    <div className="flex items-center space-x-4 border-b border-gray-300 pb-2 ">
+      <span className="text-gray-400 text-2xl font-medium">{number}</span>
+      <div className="">
+        <h2 className="text-black text-xl font-semibold">{title}</h2>
+
+        <p className="text-gray-600">{subTitle}</p>
+      </div>
+    </div>
+  );
+};
