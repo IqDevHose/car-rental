@@ -6,6 +6,7 @@ import CustomFilter from "@/components/CustomFilter";
 import MostRented from "@/components/MostRented";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import i18n from "@/utils/i18n";
 export const yearsOfProduction = [
   { title: "Year", value: "" },
   { title: "2015", value: "2015" },
@@ -257,9 +258,10 @@ export default function Home() {
           <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
             variants={stagger}
+            dir={i18n.language === "ar" ? "rtl" : "ltr"}
           >
             {cars.map((car) => (
-              <motion.div dir="rtl" variants={fadeIn} key={car.id} className="group">
+              <motion.div dir={i18n.language === "ar" ? "rtl" : "ltr"} variants={fadeIn} key={car.id} className="group">
                 <Link
                   to={`car/${car.id}`}
                   className="block bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"

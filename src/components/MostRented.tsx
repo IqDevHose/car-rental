@@ -19,10 +19,10 @@ const cars = [
   {
     id: 2,
     image:
-      "https://www.advantage-cars.cz/media/cars/2036/5842387f556d81e15842.jpg",
+      "https://www.advantage-cars.cz/media/cars/2041/9008f0c3fb5406319008.jpg",
     secondImage:
-      "https://www.advantage-cars.cz/media/cars/2036/f8f14e5b3dc15df4f8f1.jpg",
-    title: "Lamborghini Urus",
+      "https://www.advantage-cars.cz/media/cars/2041/587015910e0d33415870.jpg",
+    title: "Lamborghini Huracán",
     year: 2024,
     mileage: "13 000 km",
     priceWithVAT: "2 969 000 CZK WITH VAT",
