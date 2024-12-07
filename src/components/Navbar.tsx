@@ -32,6 +32,7 @@ const NavBar = () => {
 
   const toggleLanguage = () => {
     const newLang = i18n.language === "en" ? "ar" : "en";
+    document.documentElement.setAttribute("lang", newLang);
     i18n.changeLanguage(newLang);
   };
 
