@@ -7,7 +7,7 @@ const footerLinks = [
     links: [
       { title: "Home", url: "/" },
       { title: "Gallery", url: "/gallery" },
-      { title: "Contact Us", url: "/contact" },
+      { title: "Contact", url: "/contact" },
       { title: "About", url: "/about" },
     ],
   },
@@ -21,7 +21,7 @@ const footerLinks = [
 ];
 
 const Footer = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <footer className="flex flex-col text-black-100 bg-black mt-5 border-t border-gray-100">
@@ -34,13 +34,9 @@ const Footer = () => {
             height={18}
             className="object-contain"
           />
-          <p className="text-base text-gray-200">
-            Middle East 2024 <br />
-            All Rights Reserved &copy;
-          </p>
         </div>
 
-        <div className="footer__links">
+        <div className={`footer__links ${i18n.language === "ar" ? "text-right" : "text-left"}`}>
           {footerLinks.map((item) => (
             <div key={item.title} className="footer__link">
               <h3 className="font-bold text-white">{t(item.title)}</h3>{" "}
@@ -65,10 +61,10 @@ const Footer = () => {
 
         <div className="footer__copyrights-link">
           <Link to="/" className="text-gray-500">
-            {t("Privacy & Policy")}
+            {t("Privacy Policy")}
           </Link>
           <Link to="/" className="text-gray-500">
-            {t("Terms & Condition")}
+            {t("Terms & Conditions")}
           </Link>
         </div>
       </div>

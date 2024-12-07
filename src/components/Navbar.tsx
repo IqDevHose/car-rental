@@ -3,24 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Globe } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-const links = [
-  {
-    label: "Home",
-    link: "/",
-  },
-  {
-    label: "Gallery",
-    link: "/gallery",
-  },
-  {
-    label: "Contact",
-    link: "/contact",
-  },
-  {
-    label: "About",
-    link: "/about",
-  },
-];
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,6 +10,25 @@ const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { t, i18n } = useTranslation();
+
+  const links = [
+    {
+      label: t("Home"),
+      link: "/",
+    },
+    {
+      label: t("Gallery"),
+      link: "/gallery",
+    },
+    {
+      label: t("Contact"),
+      link: "/contact",
+    },
+    {
+      label: t("About"),
+      link: "/about",
+    },
+  ];
 
   const toggleLanguage = () => {
     const newLang = i18n.language === "en" ? "ar" : "en";
@@ -54,21 +55,19 @@ const NavBar = () => {
 
   return (
     <header
-      className={`w-full fixed z-40 transition-colors duration-300 ${
-        isHomePage
-          ? isScrolled
-            ? "backdrop-blur-lg bg-black/50"
-            : "backdrop-blur-md bg-transparent"
-          : "backdrop-blur-md bg-gray-700"
-      }`}
+      className={`w-full fixed z-40 transition-colors duration-300 ${isHomePage
+        ? isScrolled
+          ? "backdrop-blur-lg bg-black/50"
+          : "backdrop-blur-md bg-transparent"
+        : "backdrop-blur-md bg-gray-700"
+        }`}
     >
       <nav className="container mx-auto relative flex items-center py-4 md:py-8">
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className={`md:hidden p-2 ${
-            isScrolled ? "text-gray-800" : "text-gray-100"
-          }`}
+          className={`md:hidden p-2 ${isScrolled ? "text-gray-800" : "text-gray-100"
+            }`}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -77,11 +76,10 @@ const NavBar = () => {
         <ul className="hidden md:flex items-center gap-x-6 font-bold">
           {links.slice(0, links.length / 2).map((link) => (
             <li
-              className={`py-1 px-2 transition-colors ${
-                isScrolled
-                  ? "text-gray-50 hover:text-gray-300"
-                  : "text-gray-100 hover:text-gray-300"
-              }`}
+              className={`py-1 px-2 transition-colors ${isScrolled
+                ? "text-gray-50 hover:text-gray-300"
+                : "text-gray-100 hover:text-gray-300"
+                }`}
               key={link.link + link.label}
             >
               <Link to={link.link}>{t(link.label)}</Link>
@@ -107,11 +105,10 @@ const NavBar = () => {
         <ul className="hidden md:flex items-center gap-x-6 ml-auto font-bold">
           {links.slice(links.length / 2).map((link) => (
             <li
-              className={`py-1 px-2 transition-colors ${
-                isScrolled
-                  ? "text-gray-50 hover:text-gray-300"
-                  : "text-gray-100 hover:text-gray-300"
-              }`}
+              className={`py-1 px-2 transition-colors ${isScrolled
+                ? "text-gray-50 hover:text-gray-300"
+                : "text-gray-100 hover:text-gray-300"
+                }`}
               key={link.link + link.label}
             >
               <Link to={link.link}>{t(link.label)}</Link>
@@ -121,11 +118,10 @@ const NavBar = () => {
           <li>
             <button
               onClick={toggleLanguage}
-              className={`flex items-center gap-2 transition-colors ${
-                isScrolled
-                  ? "text-gray-50 hover:text-gray-300"
-                  : "text-gray-100 hover:text-gray-300"
-              }`}
+              className={`flex items-center gap-2 transition-colors ${isScrolled
+                ? "text-gray-50 hover:text-gray-300"
+                : "text-gray-100 hover:text-gray-300"
+                }`}
             >
               <Globe size={20} />
               <span className="uppercase">{i18n.language}</span>

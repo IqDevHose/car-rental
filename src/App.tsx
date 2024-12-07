@@ -7,8 +7,11 @@ import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
 import Gallery from "./pages/gallery/Gallery";
 import ScrollToTop from "./components/ScrollToTop";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 function App() {
+
   return (
     <>
       <ScrollToTop />

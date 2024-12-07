@@ -1,7 +1,11 @@
+import { useTranslation } from "react-i18next";
 import CustomButton from "../components/CustomButton";
 import { motion } from "framer-motion";
 
 const Hero = () => {
+
+  const { t, i18n } = useTranslation();
+
   const handleScroll = () => {
     const nextSection = document.getElementById("discover");
 
@@ -11,9 +15,9 @@ const Hero = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center px-[10px] sm:px-[0] relative ">
+    <div dir={i18n.language === "ar" ? "rtl" : "ltl"} className="h-screen flex justify-center items-center px-[10px] sm:px-[0] relative ">
       {/* Reversed Background Image */}
-      <div className="absolute inset-0 bg-[url('/ray.avif')] bg-cover bg-center transform scale-x-[-1]"></div>
+      <div className={`absolute inset-0 bg-[url('/ray.avif')] bg-cover bg-center transform ${i18n.language === "ar" ? "scale-x-[1]" : "scale-x-[-1]"}`}></div>
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black opacity-20"></div>
@@ -35,7 +39,7 @@ const Hero = () => {
           }}
           className="2xl:text-[50px] text-white xl:text[52px] lg:text[42px] sm:text-[34px] text-[24px] font-extrabold lg:w-[40rem] "
         >
-          Find, book, rent a car—quick and super easy!
+          {t("Find, book, rent a car—quick and super easy!")}
         </motion.h1>
 
         <motion.p
@@ -53,12 +57,11 @@ const Hero = () => {
           }}
           className="text-[14px] text-white font-light mt-5 lg:w-[20rem]"
         >
-          Streamline your car rental experience with our effortless booking
-          process.
+          {t("Streamline your car rental experience with our effortless booking process.")}
         </motion.p>
 
         <CustomButton
-          title="Explore Cars"
+          title={t("Explore Cars")}
           containerStyles="bg-primary-blue text-white mt-10"
           handleClick={handleScroll}
         />

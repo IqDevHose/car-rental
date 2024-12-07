@@ -5,17 +5,17 @@ import HttpApi from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 i18n
-  .use(HttpApi) // Load translations using HTTP
-  .use(LanguageDetector) // Detect user language
-  .use(initReactI18next) // Bind with React
+  .use(HttpApi)
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
-    fallbackLng: "en", // Default language
-    debug: true, // Enable debug mode in development
+    fallbackLng: "en",
+    debug: false,
     interpolation: {
-      escapeValue: false, // React already escapes values to prevent XSS
+      escapeValue: false,
     },
     backend: {
-      loadPath: "/locales/{{lng}}/{{ns}}.json", // Path to translation files
+      loadPath: import.meta.env.VITE_API_BASE_URL + '/locale/{{lng}}.json'
     },
   });
 

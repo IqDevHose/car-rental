@@ -259,7 +259,7 @@ export default function Home() {
             variants={stagger}
           >
             {cars.map((car) => (
-              <motion.div variants={fadeIn} key={car.id} className="group">
+              <motion.div dir="rtl" variants={fadeIn} key={car.id} className="group">
                 <Link
                   to={`car/${car.id}`}
                   className="block bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
@@ -323,9 +323,12 @@ type sectionType = {
   subTitle?: string;
 };
 const SectionHeader = ({ number, title, subTitle }: sectionType) => {
+
+  const { t, i18n } = useTranslation();
+
   return (
-    <div className="flex items-center space-x-4 border-b border-gray-300 pb-2 ">
-      <span className="text-gray-400 text-2xl font-medium">{number}</span>
+    <div className={`flex ${i18n.language === "ar" ? "flex-row-reverse" : "flex-row"} items-center space-x-4 border-b border-gray-300 pb-2 `}>
+      <span className="text-gray-400 text-2xl font-medium ml-2">{number}</span>
       <div className="">
         <h2 className="text-black text-xl font-semibold">{title}</h2>
 

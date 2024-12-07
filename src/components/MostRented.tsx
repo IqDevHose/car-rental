@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 type Props = {};
@@ -42,13 +43,15 @@ const cars = [
 ];
 
 const MostRented = (props: Props) => {
+  const { t, i18n } = useTranslation();
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
       {cars.map((car) => (
         <Link
           to={`car/${car.id}`}
           key={car.id}
-          className="relative overflow-hidden border border-gray-200 group"
+          className={`relative ${i18n.language === "ar" ? "text-right" : "text-left"} overflow-hidden border border-gray-200 group`}
         >
           <div className="relative overflow-hidden">
             {/* First Image */}
