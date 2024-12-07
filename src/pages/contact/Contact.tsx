@@ -1,3 +1,4 @@
+import i18n from "@/utils/i18n";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -101,12 +102,13 @@ const Contact = () => {
         {/* Overlay for darkening */}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-          <h1 className="text-5xl font-extrabold mb-4">{t("Contact Us")}</h1>
+          <h1 className="text-5xl font-extrabold mb-4">{t("Contact")}</h1>
         </div>
       </div>
 
       <div className="padding-x max-width py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {/* here */}
+        <div dir={i18n.language === "ar" ? "rtl" : "ltr"} className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
             <h2 className="text-3xl font-bold mb-6">{t("Get in Touch")}</h2>
             <p className="text-gray-600 mb-8">
@@ -118,7 +120,7 @@ const Contact = () => {
             <div className="space-y-6">
               {contactInfo.map((item, index) => (
                 <div key={index} className="flex items-start space-x-4">
-                  <div className="text-red-500">
+                  <div className={`text-red-500 ${i18n.language === "ar" && "ml-3"}`}>
                     <item.icon />
                   </div>
                   <div>

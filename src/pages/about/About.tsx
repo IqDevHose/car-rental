@@ -1,3 +1,4 @@
+import i18n from "@/utils/i18n";
 import { useTranslation } from "react-i18next";
 
 const About = () => {
@@ -103,7 +104,7 @@ const About = () => {
         {/* Overlay for darkening */}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-          <h1 className="text-5xl font-extrabold mb-4">{t("About Us")}</h1>
+          <h1 className="text-5xl font-extrabold mb-4">{t("About")}</h1>
           <p className="text-xl max-w-2xl text-center">
             {t(
               "Delivering exceptional luxury vehicles and outstanding service since 2008"
@@ -114,7 +115,7 @@ const About = () => {
 
       {/* Our Story Section */}
       <section className="padding-x max-width py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div dir={i18n.language === "ar" ? "rtl" : "ltr"} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl font-bold mb-6">{t("Our Story")}</h2>
             <p className="text-gray-600 mb-4">
@@ -167,6 +168,7 @@ const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {values.map((value, index) => (
             <div
+              dir={i18n.language === "ar" ? "rtl" : "ltr"}
               key={index}
               className="bg-white p-6 shadow-md border border-gray-200 rounded-lg"
             >

@@ -30,7 +30,7 @@ export const carData = {
 };
 
 export default function CarProfile() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedImage, setSelectedImage] = useState(carData.image);
   const handleImageClick = (img: string) => {
     console.log(img);
@@ -39,7 +39,7 @@ export default function CarProfile() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto pt-28 px-4 sm:px-6 lg:px-8">
+      <div dir={i18n.language === "ar" ? "rtl" : "ltr"} className="max-w-7xl mx-auto pt-28 px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
           <div className="flex flex-col lg:flex-row">
             {/* Left: Image Gallery */}
@@ -63,11 +63,10 @@ export default function CarProfile() {
                     whileHover={{ y: -2 }}
                     onClick={() => handleImageClick(img)}
                     className={`relative aspect-square rounded-xl overflow-hidden 
-                  ${
-                    selectedImage === img
-                      ? "ring-2 ring-blue-500 ring-offset-2"
-                      : "hover:ring-2 hover:ring-blue-300 hover:ring-offset-2"
-                  } transition-all duration-200`}
+                  ${selectedImage === img
+                        ? "ring-2 ring-blue-500 ring-offset-2"
+                        : "hover:ring-2 hover:ring-blue-300 hover:ring-offset-2"
+                      } transition-all duration-200`}
                   >
                     <img
                       src={img}
@@ -88,11 +87,11 @@ export default function CarProfile() {
 
                 <div className="mt-6 space-y-2">
                   <p className="text-3xl font-semibold text-blue-600">
-                    {t(carData.priceWithVAT)} IQD
+                    {t(carData.priceWithVAT)} {i18n.language === "ar" ? "د.ع" : "IQD"}
                   </p>
-                  <p className="text-gray-500 text-sm">
+                  {/* <p className="text-gray-500 text-sm">
                     {t("Without VAT")}: {t(carData.priceWithoutVAT)}
-                  </p>
+                  </p> */}
                 </div>
 
                 <Link
@@ -135,7 +134,7 @@ export default function CarProfile() {
           </div>
 
           {/* Rental Terms */}
-          <div className="p-8 bg-gradient-to-b from-white to-gray-50 border-t border-gray-200">
+          <div dir={i18n.language === "ar" ? "rtl" : "ltr"} className="p-8 bg-gradient-to-b from-white to-gray-50 border-t border-gray-200">
             <h2 className="text-2xl font-bold text-gray-900 mb-8">
               {t("Rental Terms & Conditions")}
             </h2>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { fuels, yearsOfProduction } from "../home/Home"; // Import fuels and yearsOfProduction correctly
 import SearchBar from "@/components/Searchbar";
 import CustomFilter from "@/components/CustomFilter";
-import { ArrowRight, Calendar, Gauge, Info } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, Gauge, Info } from "lucide-react";
 import { useTranslation } from "react-i18next";
 function Gallery() {
   const carData = [
@@ -11,7 +11,7 @@ function Gallery() {
       name: "Porsche Cayenne",
       priceWithVAT: "129,000",
       priceWithoutVAT: "107,500",
-      mileage: "8,000 miles",
+      mileage: "8,000",
       category: "Passenger",
       fuel: "Gasoline",
       specification: "Coupe/PDLS/Carbon/Panoramic/HUD/Ventilation",
@@ -36,7 +36,7 @@ function Gallery() {
       name: "BMW X5",
       priceWithVAT: "106,000",
       priceWithoutVAT: "87,500",
-      mileage: "15,500 miles",
+      mileage: "15,500",
       category: "Passenger",
       fuel: "Diesel",
       specification: "XDrive/Leather/Heads-up Display/Automatic",
@@ -60,7 +60,7 @@ function Gallery() {
       name: "Audi Q7",
       priceWithVAT: "134,000",
       priceWithoutVAT: "108,000",
-      mileage: "18,500 miles",
+      mileage: "18,500",
       category: "Passenger",
       fuel: "Hybrid",
       specification: "Quattro/Advanced/LED Lights",
@@ -83,7 +83,7 @@ function Gallery() {
       name: "Mercedes-Benz GLE",
       priceWithVAT: "151,000",
       priceWithoutVAT: "125,000",
-      mileage: "24,800 miles",
+      mileage: "24,800",
       category: "Passenger",
       fuel: "Gasoline",
       specification: "4MATIC/Panoramic Sunroof/Leather",
@@ -106,7 +106,7 @@ function Gallery() {
       name: "Tesla Model X",
       priceWithVAT: "181,000",
       priceWithoutVAT: "150,800",
-      mileage: "6,200 miles",
+      mileage: "6,200",
       category: "Electric",
       fuel: "Electric",
       specification: "All-Wheel Drive/Autopilot/Zero Emissions",
@@ -129,7 +129,7 @@ function Gallery() {
       name: "Volvo XC90",
       priceWithVAT: "125,000",
       priceWithoutVAT: "103,500",
-      mileage: "31,000 miles",
+      mileage: "31,000",
       category: "Passenger",
       fuel: "Diesel",
       specification: "AWD/Leather Seats/Automatic",
@@ -152,7 +152,7 @@ function Gallery() {
       name: "Land Rover Defender",
       priceWithVAT: "164,000",
       priceWithoutVAT: "135,800",
-      mileage: "3,100 miles",
+      mileage: "3,100",
       category: "Passenger",
       fuel: "Diesel",
       specification: "Terrain Response/Leather/Navigation",
@@ -175,7 +175,7 @@ function Gallery() {
       name: "Jaguar F-Pace",
       priceWithVAT: "117,000",
       priceWithoutVAT: "95,300",
-      mileage: "12,400 miles",
+      mileage: "12,400",
       category: "Passenger",
       fuel: "Gasoline",
       specification: "AWD/LED/Panoramic Roof",
@@ -195,7 +195,7 @@ function Gallery() {
     },
   ];
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <div className="container mx-auto">
@@ -220,7 +220,7 @@ function Gallery() {
               </div>
 
               {/* Content Container */}
-              <div className="p-6">
+              <div dir={i18n.language === "ar" ? "rtl" : "ltr"} className="p-6">
                 {/* Header */}
                 <div className="mb-4">
                   <h2 className="text-xl font-semibold text-gray-900 mb-2">
@@ -233,7 +233,7 @@ function Gallery() {
                     </span>
                     <span className="flex items-center gap-1">
                       <Gauge className="w-4 h-4" />
-                      {t(car.mileage)}
+                      {t(car.mileage)} {i18n.language === "ar" ? "ميل" : "Miles"}
                     </span>
                   </div>
                 </div>
@@ -242,7 +242,7 @@ function Gallery() {
                 <div className="mb-6 pb-6 border-b border-gray-100 ">
                   <div className="flex  gap-2 flex-col">
                     <p className="text-xl font-bold text-gray-900">
-                      {t(car.priceWithVAT)} IQD
+                      {t(car.priceWithVAT)} {i18n.language === "ar" ? "د.ع" : "IQD"}
                     </p>
                     {/* Uncomment if VAT details are needed */}
                     {/* <p className="text-sm text-gray-500">
@@ -254,11 +254,11 @@ function Gallery() {
                 {/* Specifications Grid */}
                 <div className="gap-4 mb-6">
                   <div className="">
-                    <InfoLabel label={t("Body")} value={t(car.body)} />
+                    <InfoLabel label={t("Type")} value={t(car.body)} />
                     <InfoLabel label={t("Fuel")} value={t(car.fuel)} />
                     <InfoLabel label={t("Power")} value={t(car.power)} />
                     <InfoLabel
-                      label={t("Engine")}
+                      label={t("Engin")}
                       value={t(car.engineDisplacement)}
                     />
                   </div>
@@ -268,7 +268,7 @@ function Gallery() {
                 <Link to={`/car/{car.id}`} key={car.id + Math.random() * 10}>
                   <button className="w-full flex items-center justify-center gap-2 bg-gray-700  hover:bg-blue-800 text-white py-3 px-4  font-medium transition-all duration-300">
                     {t("View Details")}
-                    <ArrowRight className="w-4 h-4" />
+                    {i18n.language === "ar" ? <ArrowLeft className="" /> : <ArrowRight />}
                   </button>
                 </Link>
               </div>
@@ -283,8 +283,9 @@ function Gallery() {
 export default Gallery;
 
 const InfoLabel = ({ label, value }: any) => {
+  const { t, i18n } = useTranslation();
   return (
-    <div className="flex items-center gap-2 justify-between">
+    <div className={`flex ${i18n.language === "ar" ? "" : ""} items-center gap-2 justify-between`}>
       <span className="text-sm font-medium text-gray-700">{label}</span>
       <span className="text-sm text-gray-600">{value}</span>
     </div>
