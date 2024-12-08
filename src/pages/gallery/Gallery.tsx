@@ -245,7 +245,7 @@ function Gallery() {
       <div className="items-center justify-between pt-32 flex">
         <SearchBar
           handleSearchChange={handleSearchChange}
-          searchTerm={t(searchTerm)}
+          searchTerm={searchTerm}
         />
       </div>
 

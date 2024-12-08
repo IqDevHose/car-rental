@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface SearchBarProps {
   searchTerm: string;
@@ -9,11 +10,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
   searchTerm,
   handleSearchChange,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex items-center space-x-4 w-full">
       <input
         type="text"
-        placeholder="Search for cars, categories, or fuel types..."
+        placeholder={t("Search for cars, categories, or fuel types...")}
         value={searchTerm}
         onChange={handleSearchChange}
         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
