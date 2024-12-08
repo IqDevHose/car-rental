@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Hero from "@/components/Hero";
 import SearchBar from "@/components/Searchbar";
 import CustomFilter from "@/components/CustomFilter";
@@ -335,7 +335,7 @@ export default function Home() {
             {filteredCars?.map((car) => (
               <motion.div
                 dir={i18n.language === "ar" ? "rtl" : "ltr"}
-                variants={fadeIn}
+                // variants={fadeIn}
                 key={car.name}
                 className="group"
               >
@@ -410,9 +410,8 @@ const SectionHeader = ({ number, title, subTitle }: sectionType) => {
 
   return (
     <div
-      className={`flex ${
-        i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
-      } items-center space-x-4 border-b border-gray-300 pb-2 `}
+      className={`flex ${i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
+        } items-center space-x-4 border-b border-gray-300 pb-2 `}
     >
       <span className="text-gray-400 text-2xl font-medium ml-2">{number}</span>
       <div className="">
