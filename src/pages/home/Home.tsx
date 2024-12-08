@@ -7,8 +7,11 @@ import MostRented from "@/components/MostRented";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import i18n from "@/utils/i18n";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "@/utils/AxiosInstance";
+
+// const queryClient = useQueryClient();
+
 export const yearsOfProduction = [
   { title: "Year", value: "" },
   { title: "2015", value: "2015" },
@@ -37,31 +40,31 @@ export const fuels = [
   },
 ];
 
-const carData = {
-  id: 1,
-  name: "Porsche Cayenne",
-  priceWithVAT: "2 969 000 CZK",
-  priceWithoutVAT: "2 453 719 CZK",
-  mileage: "13 000 km",
-  category: "Osobní",
-  fuel: "Benzín",
-  specification: "Coupe/PDLS/Karbon/Pano/HUD/Ventilace",
-  inOperationSince: "2023-11",
-  body: "SUV",
-  power: "260 kW / 354 koní",
-  engineDisplacement: "2995 ccm",
-  color: "Šedá",
-  image: "/cars/porsche.jpeg", // Update this with a valid path
-  gallery: [
-    "/cars/porsche.jpeg",
-    "/cars/1.jpg",
-    "/cars/2.jpg",
-    "/cars/3.jpg",
-    "/cars/4.jpg",
-    "/cars/5.jpg",
-    "/cars/6.jpg",
-  ],
-};
+// const carData = {
+//   id: 1,
+//   name: "Porsche Cayenne",
+//   priceWithVAT: "2 969 000 CZK",
+//   priceWithoutVAT: "2 453 719 CZK",
+//   mileage: "13 000 km",
+//   category: "Osobní",
+//   fuel: "Benzín",
+//   specification: "Coupe/PDLS/Karbon/Pano/HUD/Ventilace",
+//   inOperationSince: "2023-11",
+//   body: "SUV",
+//   power: "260 kW / 354 koní",
+//   engineDisplacement: "2995 ccm",
+//   color: "Šedá",
+//   image: "/cars/porsche.jpeg", // Update this with a valid path
+//   gallery: [
+//     "/cars/porsche.jpeg",
+//     "/cars/1.jpg",
+//     "/cars/2.jpg",
+//     "/cars/3.jpg",
+//     "/cars/4.jpg",
+//     "/cars/5.jpg",
+//     "/cars/6.jpg",
+//   ],
+// };
 
 // export const cars = [
 //   {
@@ -163,6 +166,7 @@ type BrandsItem = {
 };
 
 type CarsItem = {
+  id: string;
   name: string;
   category: string;
   fuel: string;
@@ -178,33 +182,24 @@ type CarsItem = {
   images: string[];
 };
 
-const fetchBrands = async (): Promise<BrandsItem[]> => {
-  try {
+export default function Home() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const { t } = useTranslation();
+
+  const fetchBrands = async (): Promise<BrandsItem[]> => {
     const response = await axiosInstance.get("/cars/brands/all");
     return response.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error;
-  }
-};
+  };
 
-const fetchCars = async (): Promise<CarsItem[]> => {
-  try {
+  const fetchCars = async (): Promise<CarsItem[]> => {
     const response = await axiosInstance.get("/cars");
     return response.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error;
-  }
-};
-
-export default function Home() {
-  const [selectedImage, setSelectedImage] = useState(carData.image);
-  const { t } = useTranslation();
-  const handleImageClick = (img: string) => {
-    console.log(img);
-    setSelectedImage(img);
   };
+
+  const { data: cars } = useQuery({
+    queryKey: ["cars"],
+    queryFn: fetchCars,
+  });
 
   const {
     data: logos,
@@ -213,11 +208,6 @@ export default function Home() {
   } = useQuery({
     queryKey: ["car-brands"],
     queryFn: fetchBrands,
-  });
-
-  const { data: cars } = useQuery({
-    queryKey: ["cars"],
-    queryFn: fetchCars,
   });
 
   if (isLoading) return <p>Loading...</p>;
@@ -249,6 +239,14 @@ export default function Home() {
       },
     },
   };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredCars = cars?.filter((car) =>
+    car.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <main className="overflow-hidden ">
@@ -322,16 +320,19 @@ export default function Home() {
           <div className="mb-4">
             <SectionHeader number="03" title={t("Our Cars")} />
           </div>
-          <div className="mb-4">
-            <SearchBar />
+          <div className="flex items-center space-x-4">
+            <SearchBar
+              searchTerm={searchTerm}
+              handleSearchChange={handleSearchChange}
+            />
           </div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10"
             variants={stagger}
             dir={i18n.language === "ar" ? "rtl" : "ltr"}
           >
-            {cars?.map((car) => (
+            {filteredCars?.map((car) => (
               <motion.div
                 dir={i18n.language === "ar" ? "rtl" : "ltr"}
                 variants={fadeIn}
@@ -339,7 +340,7 @@ export default function Home() {
                 className="group"
               >
                 <Link
-                  to={`car/${car.name}`}
+                  to={`car/${car.id}`}
                   className="block bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <div className="overflow-hidden">
