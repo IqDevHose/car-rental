@@ -7,6 +7,8 @@ import MostRented from "@/components/MostRented";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import i18n from "@/utils/i18n";
+import { useQuery } from "@tanstack/react-query";
+import axiosInstance from "@/utils/AxiosInstance";
 export const yearsOfProduction = [
   { title: "Year", value: "" },
   { title: "2015", value: "2015" },
@@ -61,92 +63,140 @@ const carData = {
   ],
 };
 
-export const cars = [
-  {
-    id: 1,
-    image: "/cars/porsche.jpeg",
-    title: "PORSCHE CAYENNE",
-    year: 2023,
-    mileage: "13 000 km",
-    priceWithVAT: "2 969 000 CZK WITH VAT",
-    priceWithoutVAT: "2 453 719 CZK WITHOUT VAT",
-  },
-  {
-    id: 2,
-    image: "/cars/mercedes.jpeg",
-    title: "MERCEDES-BENZ TŘÍDY V",
-    year: 2018,
-    mileage: "116 500 km",
-    priceWithVAT: "2 300 000 CZK WITH VAT",
-    priceWithoutVAT: "1 900 826 CZK WITHOUT VAT",
-  },
-  {
-    id: 3,
-    image: "/cars/mercedes.jpeg",
-    title: "MERCEDES-BENZ TŘÍDY V",
-    year: 2018,
-    mileage: "116 500 km",
-    priceWithVAT: "2 300 000 CZK WITH VAT",
-    priceWithoutVAT: "1 900 826 CZK WITHOUT VAT",
-  },
-  {
-    id: 4,
-    image: "/cars/lamborghini.jpeg",
-    title: "LAMBORGHINI HURACÁN",
-    year: 2021,
-    mileage: "79 900 km",
-    priceWithVAT: "7 049 000 CZK WITH VAT",
-    priceWithoutVAT: "5 825 620 CZK WITHOUT VAT",
-  },
-  {
-    id: 5,
-    image: "/cars/porsche.jpeg",
-    title: "PORSCHE CAYENNE",
-    year: 2023,
-    mileage: "13 000 km",
-    priceWithVAT: "2 969 000 CZK WITH VAT",
-    priceWithoutVAT: "2 453 719 CZK WITHOUT VAT",
-  },
-];
+// export const cars = [
+//   {
+//     id: 1,
+//     image: "/cars/porsche.jpeg",
+//     title: "PORSCHE CAYENNE",
+//     year: 2023,
+//     mileage: "13 000 km",
+//     priceWithVAT: "2 969 000 CZK WITH VAT",
+//     priceWithoutVAT: "2 453 719 CZK WITHOUT VAT",
+//   },
+//   {
+//     id: 2,
+//     image: "/cars/mercedes.jpeg",
+//     title: "MERCEDES-BENZ TŘÍDY V",
+//     year: 2018,
+//     mileage: "116 500 km",
+//     priceWithVAT: "2 300 000 CZK WITH VAT",
+//     priceWithoutVAT: "1 900 826 CZK WITHOUT VAT",
+//   },
+//   {
+//     id: 3,
+//     image: "/cars/mercedes.jpeg",
+//     title: "MERCEDES-BENZ TŘÍDY V",
+//     year: 2018,
+//     mileage: "116 500 km",
+//     priceWithVAT: "2 300 000 CZK WITH VAT",
+//     priceWithoutVAT: "1 900 826 CZK WITHOUT VAT",
+//   },
+//   {
+//     id: 4,
+//     image: "/cars/lamborghini.jpeg",
+//     title: "LAMBORGHINI HURACÁN",
+//     year: 2021,
+//     mileage: "79 900 km",
+//     priceWithVAT: "7 049 000 CZK WITH VAT",
+//     priceWithoutVAT: "5 825 620 CZK WITHOUT VAT",
+//   },
+//   {
+//     id: 5,
+//     image: "/cars/porsche.jpeg",
+//     title: "PORSCHE CAYENNE",
+//     year: 2023,
+//     mileage: "13 000 km",
+//     priceWithVAT: "2 969 000 CZK WITH VAT",
+//     priceWithoutVAT: "2 453 719 CZK WITHOUT VAT",
+//   },
+// ];
 
-const logos = [
-  {
-    id: 1,
-    name: "Cadillac",
-    link: "/cadillac",
-    img: "/car-logo/cadillac.png",
-  },
-  {
-    id: 2,
-    name: "Chevrolet",
-    link: "/chevrolet",
-    img: "/car-logo/Chevrolet.png",
-  },
-  {
-    id: 3,
-    name: "Dodge",
-    link: "/dodge",
-    img: "/car-logo/dodge.png",
-  },
-  {
-    id: 4,
-    name: "Land Rover",
-    link: "/land-rover",
-    img: "/car-logo/Land-Rover.png",
-  },
-  {
-    id: 5,
-    name: "Lexus",
-    link: "/lexus",
-    img: "/car-logo/Lexus.png",
-  },
-  {
-    id: 6,
-    name: "Nissan",
-    link: "/nissan",
-    img: "/car-logo/nissan.png",
-  },
-];
+// const logos = [
+//   {
+//     id: 1,
+//     name: "Cadillac",
+//     link: "/cadillac",
+//     img: "/car-logo/cadillac.png",
+//   },
+//   {
+//     id: 2,
+//     name: "Chevrolet",
+//     link: "/chevrolet",
+//     img: "/car-logo/Chevrolet.png",
+//   },
+//   {
+//     id: 3,
+//     name: "Dodge",
+//     link: "/dodge",
+//     img: "/car-logo/dodge.png",
+//   },
+//   {
+//     id: 4,
+//     name: "Land Rover",
+//     link: "/land-rover",
+//     img: "/car-logo/Land-Rover.png",
+//   },
+//   {
+//     id: 5,
+//     name: "Lexus",
+//     link: "/lexus",
+//     img: "/car-logo/Lexus.png",
+//   },
+//   {
+//     id: 6,
+//     name: "Nissan",
+//     link: "/nissan",
+//     img: "/car-logo/nissan.png",
+//   },
+// ];
+
+// /cars/brands/all
+type Model = {
+  name: string;
+  year: number;
+};
+
+type BrandsItem = {
+  name: string;
+  image: string;
+  model?: Model[];
+};
+
+type CarsItem = {
+  name: string;
+  category: string;
+  fuel: string;
+  mileage: number;
+  specification: string;
+  color: string;
+  power: number;
+  engineDisplacement: number;
+  isAvailable?: boolean;
+  price: number;
+  seats: number;
+  description: string;
+  images: string[];
+};
+
+const fetchBrands = async (): Promise<BrandsItem[]> => {
+  try {
+    const response = await axiosInstance.get("/cars/brands/all");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
+
+const fetchCars = async (): Promise<CarsItem[]> => {
+  try {
+    const response = await axiosInstance.get("/cars");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState(carData.image);
@@ -155,6 +205,23 @@ export default function Home() {
     console.log(img);
     setSelectedImage(img);
   };
+
+  const {
+    data: logos,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["car-brands"],
+    queryFn: fetchBrands,
+  });
+
+  const { data: cars } = useQuery({
+    queryKey: ["cars"],
+    queryFn: fetchCars,
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   const handleScroll = () => {
     const nextSection = document.getElementById("discover");
@@ -220,21 +287,25 @@ export default function Home() {
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
             variants={stagger}
           >
-            {logos.map((logo) => (
-              <motion.button
-                variants={fadeIn}
-                onClick={handleScroll}
-                key={logo.id}
-                className="group bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <motion.img
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  src={logo.img}
-                  alt={logo.name}
-                  className="h-[100px] w-auto mx-auto object-contain"
-                />
-              </motion.button>
+            {logos?.map((logo, index) => (
+              <>
+                {index < 6 && (
+                  <motion.button
+                    variants={fadeIn}
+                    onClick={handleScroll}
+                    key={logo.name} // Use a unique key
+                    className="group bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <motion.img
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      src={logo.image} // Ensure 'image' is available in your data
+                      alt={logo.name}
+                      className="h-[100px] w-auto mx-auto object-contain"
+                    />
+                  </motion.button>
+                )}
+              </>
             ))}
           </motion.div>
         </motion.div>
@@ -260,34 +331,43 @@ export default function Home() {
             variants={stagger}
             dir={i18n.language === "ar" ? "rtl" : "ltr"}
           >
-            {cars.map((car) => (
-              <motion.div dir={i18n.language === "ar" ? "rtl" : "ltr"} variants={fadeIn} key={car.id} className="group">
+            {cars?.map((car) => (
+              <motion.div
+                dir={i18n.language === "ar" ? "rtl" : "ltr"}
+                variants={fadeIn}
+                key={car.name}
+                className="group"
+              >
                 <Link
-                  to={`car/${car.id}`}
+                  to={`car/${car.name}`}
                   className="block bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <div className="overflow-hidden">
                     <motion.img
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.4 }}
-                      src={car.image}
-                      alt={car.title}
+                      src={car.images[0]}
+                      alt={car.name}
                       className="w-full h-56 object-cover"
                     />
                   </div>
                   <div className="p-6">
                     <h2 className="text-xl font-bold text-gray-900">
-                      {t(car.title)}
+                      {t(car.name)}
                     </h2>
                     <p className="text-gray-600 mt-2">
-                      {t(`${car.year}`)} / {t(car.mileage)}
+                      {t(`${car.category}`)} / {t(`${car.fuel}`)} /{" "}
+                      {t(`${car.mileage} km`)}
+                    </p>
+                    <p className="text-gray-500 mt-2">
+                      {t(`Seats: ${car.seats}`)}
                     </p>
                     <div className="mt-4">
                       <p className="text-2xl font-semibold text-gray-900">
-                        {t(car.priceWithVAT)}
+                        {t(`${car.price.toLocaleString()} CZK`)}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {t(car.priceWithoutVAT)}
+                        {t(car.specification)}
                       </p>
                     </div>
                     <motion.div className="mt-6" whileHover={{ x: 5 }}>
@@ -325,11 +405,14 @@ type sectionType = {
   subTitle?: string;
 };
 const SectionHeader = ({ number, title, subTitle }: sectionType) => {
-
   const { t, i18n } = useTranslation();
 
   return (
-    <div className={`flex ${i18n.language === "ar" ? "flex-row-reverse" : "flex-row"} items-center space-x-4 border-b border-gray-300 pb-2 `}>
+    <div
+      className={`flex ${
+        i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
+      } items-center space-x-4 border-b border-gray-300 pb-2 `}
+    >
       <span className="text-gray-400 text-2xl font-medium ml-2">{number}</span>
       <div className="">
         <h2 className="text-black text-xl font-semibold">{title}</h2>
