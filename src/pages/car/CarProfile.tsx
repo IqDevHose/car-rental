@@ -16,6 +16,11 @@ type model = {
   };
 };
 
+type ImageType = {
+  link: string;
+  id: string;
+}
+
 type CarsItem = {
   id: string;
   name: string;
@@ -30,7 +35,7 @@ type CarsItem = {
   price: number;
   seats: number;
   description: string;
-  images: string[];
+  images: ImageType[];
   model: model;
 };
 
@@ -47,6 +52,7 @@ export default function CarProfile() {
   // Fetch car data based on ID
   const fetchCarProfile = async (): Promise<CarsItem> => {
     const response = await axiosInstance.get(`/cars/${id}`);
+    console.log(response.data)
     return response.data;
   };
 
@@ -65,7 +71,7 @@ export default function CarProfile() {
   if (error) return <p>Error: {error.message}</p>;
 
   // Fallback to default image or empty
-  const image = selectedImage || carProfile?.images[0];
+  const image = selectedImage || carProfile?.images[0].link;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -90,21 +96,20 @@ export default function CarProfile() {
               </div>
 
               <div className="mt-6 grid grid-cols-4 gap-4">
-                {carProfile?.images?.map((img, index) => (
+                {carProfile?.images?.map((img) => (
                   <motion.button
-                    key={index}
+                    key={img.id}
                     whileHover={{ y: -2 }}
-                    onClick={() => handleImageClick(img)}
+                    onClick={() => handleImageClick(img.link)}
                     className={`relative aspect-square rounded-xl overflow-hidden 
-                  ${
-                    image === img
-                      ? "ring-2 ring-blue-500 ring-offset-2"
-                      : "hover:ring-2 hover:ring-blue-300 hover:ring-offset-2"
-                  } transition-all duration-200`}
+                  ${image === img.link
+                        ? "ring-2 ring-blue-500 ring-offset-2"
+                        : "hover:ring-2 hover:ring-blue-300 hover:ring-offset-2"
+                      } transition-all duration-200`}
                   >
                     <img
-                      src={img}
-                      alt={t(`Gallery Image ${index + 1}`)}
+                      src={img.link}
+                      alt={t(`Gallery Image ${img.id}`)}
                       className="w-full h-full object-cover"
                     />
                   </motion.button>
