@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import i18n from "@/utils/i18n";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "@/utils/AxiosInstance";
+import { Fuel, GalleryHorizontal, Milestone } from "lucide-react";
 
 // const queryClient = useQueryClient();
 
@@ -359,13 +360,6 @@ export default function Home() {
                     <h2 className="text-xl font-bold text-gray-900">
                       {t(car.name)}
                     </h2>
-                    <p className="text-gray-600 mt-2">
-                      {t(`${car.category}`)} / {t(`${car.fuel}`)} /{" "}
-                      {t(`${car.mileage} km`)}
-                    </p>
-                    <p className="text-gray-500 mt-2">
-                      {t(`Seats: ${car.seats}`)}
-                    </p>
                     <div className="mt-4">
                       <p className="text-2xl font-semibold text-gray-900">
                         {car.price.toLocaleString()} {t(`IQD`)}
@@ -373,12 +367,31 @@ export default function Home() {
                       <p className="text-sm text-gray-500">
                         {t(car.specification)}
                       </p>
+                      <div className="mt-2">
+
+                        <div className="bg-green-500 flex justify-around rounded-md py-2 px-4 text-white  gap-x-8">
+                          <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
+                            <Fuel size={"20"} /> <p className="text-[14px]">{t(`${car.fuel}`)}</p>
+                          </div>
+
+                          <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
+                            <Milestone size={"20"} /> <p className="text-[14px]">{t(`${car.mileage} km`)}</p>
+                          </div>
+
+                          <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
+                            <GalleryHorizontal size={"20"} /> <p className="text-[14px]">{car.seats}</p>
+                            {/* {t(`Seats: ${car.seats}`)} */}
+                          </div>
+
+                        </div>
+                      </div>
                     </div>
-                    <motion.div className="mt-6" whileHover={{ x: 5 }}>
+
+                    {/* <motion.div className="mt-6" whileHover={{ x: 5 }}>
                       <span className="inline-flex items-center text-red-500 font-semibold">
                         {t("View Details")}
                         <svg
-                          className="w-5 h-5 ml-2"
+                          className={`${i18n.language === "ar" && "rotate-180 mr-2"} w-5 h-5 ml-2`}
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -391,7 +404,7 @@ export default function Home() {
                           />
                         </svg>
                       </span>
-                    </motion.div>
+                    </motion.div> */}
                   </div>
                 </Link>
               </motion.div>
@@ -413,9 +426,8 @@ const SectionHeader = ({ number, title, subTitle }: sectionType) => {
 
   return (
     <div
-      className={`flex ${
-        i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
-      } items-center space-x-4 border-b border-gray-300 pb-2 `}
+      className={`flex ${i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
+        } items-center space-x-4 border-b border-gray-300 pb-2 `}
     >
       <span className="text-gray-400 text-2xl font-medium ml-2">{number}</span>
       <div className="">

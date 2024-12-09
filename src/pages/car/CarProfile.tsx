@@ -132,7 +132,7 @@ export default function CarProfile() {
                 </div>
 
                 <Link
-                  to="https://wa.me/9647717504243?text=مرحبًا%2C%20أود%20حجز%20خدمة."
+                  to="https://wa.me/9647865559555?text=مرحبًا%2C%20أود%20حجز%20خدمة."
                   className="mt-8 flex items-center justify-center w-full gap-3 px-6 py-4 text-white bg-green-500 rounded-xl hover:bg-green-600 transition-all duration-200 transform hover:-translate-y-0.5 shadow-lg hover:shadow-xl"
                 >
                   <img src="/whatsapp.png" alt="WhatsApp" className="w-6 h-6" />
