@@ -282,7 +282,7 @@ function Gallery() {
                   </p>
                   <div className="mt-4">
                     <p className="text-2xl font-semibold text-gray-900">
-                      {t(`${car.price.toLocaleString()} CZK`)}
+                      {car.price.toLocaleString()} {t(`IQD`)}
                     </p>
                     <p className="text-sm text-gray-500">
                       {t(car.specification)}

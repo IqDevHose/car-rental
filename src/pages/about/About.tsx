@@ -115,10 +115,18 @@ const About = () => {
 
       {/* Our Story Section */}
       <section className="padding-x max-width py-16">
-        <div dir={i18n.language === "ar" ? "rtl" : "ltr"} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
+          className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+        >
           <div>
             <h2 className="text-3xl font-bold mb-6">{t("Our Story")}</h2>
-            <p className="text-gray-600 mb-4">
+            <p>
+              {i18n.language === "ar"
+                ? `لاحظ مؤسسونا تحولا في الطريقة التي يستأجر بها الناس السيارات. من هذا التحول, ولدت شركة: الشرق الاوسط. تأسست على "الواردة", فكرة أن الناس يريدون ان يشعروا بالحرية عند استئجار سيارة`
+                : `Our founders noticed a shift in the way people rent cars. From this shift, a company was born: Middle East. It was founded on "inbound," the notion that people want to feel free when renting a car.`}
+            </p>
+            {/* <p className="text-gray-600 mb-4">
               {t(
                 "Founded in 2008, we've established ourselves as a leading luxury car dealership in the Czech Republic. Our journey began with a simple vision: to provide exceptional vehicles and unparalleled service to discerning clients."
               )}
@@ -132,7 +140,7 @@ const About = () => {
               {t(
                 "Today, we continue to expand our collection of premium vehicles while maintaining the personalized service that has been our hallmark since day one."
               )}
-            </p>
+            </p> */}
           </div>
           <div className="relative h-[400px]">
             <img
@@ -160,35 +168,142 @@ const About = () => {
         </div>
       </section>
 
-      {/* Our Values Section */}
+      {/* Renting Services Section */}
       <section className="padding-x max-width py-16">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          {t("Our Values")}
+        <h2 className={`text-3xl font-bold mb-12 text-center`}>
+          {i18n.language === "ar" ? "خدمات التأجير" : "Renting Services"}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {values.map((value, index) => (
-            <div
-              dir={i18n.language === "ar" ? "rtl" : "ltr"}
-              key={index}
-              className="bg-white p-6 shadow-md border border-gray-200 rounded-lg"
-            >
-              <div className="text-red-500 mb-4">
-                <value.icon />
-              </div>
-              <h3 className="text-xl font-bold mb-2">{t(value.title)}</h3>
-              <p className="text-gray-600">{t(value.description)}</p>
+          {/* Car Rentals */}
+          <div
+            dir={i18n.language === "ar" ? "rtl" : "ltr"}
+            className="bg-white p-6 shadow-md border border-gray-200 rounded-lg"
+          >
+            <div className="text-red-500 mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                />
+              </svg>
             </div>
-          ))}
+            <h3 className="text-xl font-bold mb-2">
+              {i18n.language === "ar"
+                ? "تأجير السيارات للأفراد والشركات"
+                : "Car Rentals for Individuals and Companies"}
+            </h3>
+            <p className="text-gray-600">
+              {i18n.language === "ar"
+                ? "استئجار السيارات مع أو بدون سائق للأشخاص داخل وخارج العراق، بما في ذلك الشركات المحلية والدولية."
+                : "Rent cars with or without a driver for people inside and outside Iraq, catering to both local and international companies."}
+            </p>
+          </div>
+          {/* Airport Services */}
+          <div
+            dir={i18n.language === "ar" ? "rtl" : "ltr"}
+            className="bg-white p-6 shadow-md border border-gray-200 rounded-lg"
+          >
+            <div className="text-red-500 mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold mb-2">
+              {i18n.language === "ar" ? "خدمات المطار" : "Airport Services"}
+            </h3>
+            <p className="text-gray-600">
+              {i18n.language === "ar"
+                ? "تمتع بخدمة نقل آمنة وموثوقة مع خدماتنا في المطار. يمكنك استئجار سيارة فور وصولك مع أو بدون سائق، أو الاستفادة من خدمات النقل من وإلى المطار."
+                : "Enjoy safe and reliable transportation with our airport services. Rent a car immediately upon arrival, with or without a driver, or take advantage of our transportation to and from the airport."}
+            </p>
+          </div>
+          {/* Long-Term Leasing */}
+          <div
+            dir={i18n.language === "ar" ? "rtl" : "ltr"}
+            className="bg-white p-6 shadow-md border border-gray-200 rounded-lg"
+          >
+            <div className="text-red-500 mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold mb-2">
+              {i18n.language === "ar"
+                ? "الإيجار طويل الأمد للشركات"
+                : "Long-Term Leasing for Companies"}
+            </h3>
+            <p className="text-gray-600">
+              {i18n.language === "ar"
+                ? "قلل التكاليف مع خيارات الإيجار طويل الأمد لدينا، وهو مثالي للشركات التي تسعى لحلول نقل مريحة وفعّالة من حيث التكلفة لموظفيها."
+                : "Reduce costs with our long-term leasing options, ideal for companies seeking convenient and cost-effective transportation solutions for their employees."}
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Team Section */}
       <section className="bg-gray-100 py-16">
-        <div className="padding-x max-width">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            {t("Our Leadership Team")}
+        <div
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
+          className="padding-x max-width"
+        >
+          <h2
+            className={`text-3xl font-bold mb-12 ${
+              i18n.language === "ar" ? "text-right" : "text-left"
+            }`}
+          >
+            {i18n.language === "ar" ? "رؤيتنا" : "Our Vision"}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          <div
+            className={`max-w-xl text-lg ${
+              i18n.language === "ar" ? "text-right" : "text-left"
+            }`}
+          >
+            <h1>
+              {i18n.language === "ar"
+                ? `تجاوز توقعات وتطلعات عملائنا من خلال إسعادهم وتحقيق الرضا الكامل في كل خطوة من رحلتهم معنا.`
+                : `Exceeding the expectations and aspirations of our customers by
+      making them happy and achieving complete satisfaction at every
+      step of their journey with us.`}
+            </h1>
+          </div>
+
+          {/* <h2 className="text-3xl font-bold text-center mb-12">
+            {t("Our Leadership Team")}
+          </h2> */}
+
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {team.map((member, index) => (
               <div
                 key={index}
@@ -205,7 +320,7 @@ const About = () => {
                 <p className="text-gray-600">{t(member.position)}</p>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
     </main>
