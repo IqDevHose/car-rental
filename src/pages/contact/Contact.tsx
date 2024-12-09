@@ -30,7 +30,7 @@ const Contact = () => {
   const contactInfo = [
     {
       title: t("Visit Our Showroom"),
-      content: "123 Car Avenue, Prague, Czech Republic",
+      content: "العراق - البصرة - شارع الجزائر - حي عمان",
       icon: () => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +56,7 @@ const Contact = () => {
     },
     {
       title: t("Call Us"),
-      content: "+420 123 456 789",
+      content: "9647821584015",
       icon: () => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,7 @@ const Contact = () => {
     },
     {
       title: t("Email Us"),
-      content: "info@luxurycars.cz",
+      content: "middle_east_23@yahoo.com",
       icon: () => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -186,15 +186,15 @@ const Contact = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                 >
                   <option value="General Inquiry">
-                    {t("General Inquiry")}
+                    {i18n.language === "ar" ? "إستفسار عام" : "General Inquiry"}
                   </option>
                   <option value="Vehicle Information">
-                    {t("Vehicle Information")}
+                    {i18n.language === "ar" ? "معلومات عن السيارة" : "Vehicle Information"}
                   </option>
                   <option value="Test Drive Request">
-                    {t("Test Drive Request")}
+                    {i18n.language === "ar" ? "طلب تجربة قيادة" : "Test Drive Request"}
                   </option>
-                  <option value="Price Quote">{t("Price Quote")}</option>
+                  <option value="Price Quote">{i18n.language === "ar" ? "إستعلام عن السعر" : "Price Quote"}</option>
                 </select>
               </div>
 
