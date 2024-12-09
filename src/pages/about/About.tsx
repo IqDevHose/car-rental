@@ -106,9 +106,9 @@ const About = () => {
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
           <h1 className="text-5xl font-extrabold mb-4">{t("About")}</h1>
           <p className="text-xl max-w-2xl text-center">
-            {t(
-              "Delivering exceptional luxury vehicles and outstanding service since 2008"
-            )}
+            {i18n.language === "ar"
+              ? "تقديم سيارات فاخرة استثنائية وخدمة متميزة منذ عام 2019"
+              : "Delivering exceptional luxury vehicles and outstanding service since 2019"}
           </p>
         </div>
       </div>

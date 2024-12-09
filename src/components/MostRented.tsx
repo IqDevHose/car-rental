@@ -51,7 +51,9 @@ const MostRented = (props: Props) => {
         <Link
           to={`car/${car.id}`}
           key={car.id}
-          className={`relative ${i18n.language === "ar" ? "text-right" : "text-left"} overflow-hidden border border-gray-200 group`}
+          className={`relative ${
+            i18n.language === "ar" ? "text-right" : "text-left"
+          } overflow-hidden border border-gray-200 group`}
         >
           <div className="relative overflow-hidden">
             {/* First Image */}
@@ -77,8 +79,15 @@ const MostRented = (props: Props) => {
               {car.year} / {car.mileage}
             </p>
           </div>
-          <div className="absolute bottom-0 right-0">
-            <button className="p-4 w-full text-sm text-white bg-red-500 hover:bg-red-600 py-2">
+          <div
+            className={`absolute bottom-0 ${
+              i18n.language === "ar" ? "left-0" : "right-0"
+            }`}
+          >
+            <button
+              dir={i18n.language === "ar" ? "rtl" : "ltr"}
+              className="p-4 w-full text-sm text-white bg-red-500 hover:bg-red-600 py-2"
+            >
               {"->"}
             </button>
           </div>
