@@ -56,7 +56,7 @@ const Contact = () => {
     },
     {
       title: t("Call Us"),
-      content: "9647821584015",
+      content: "+9647750500006",
       icon: () => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +108,10 @@ const Contact = () => {
 
       <div className="padding-x max-width py-16">
         {/* here */}
-        <div dir={i18n.language === "ar" ? "rtl" : "ltr"} className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
+          className="grid grid-cols-1 md:grid-cols-2 gap-12"
+        >
           <div>
             <h2 className="text-3xl font-bold mb-6">{t("Get in Touch")}</h2>
             <p className="text-gray-600 mb-8">
@@ -120,7 +123,11 @@ const Contact = () => {
             <div className="space-y-6">
               {contactInfo.map((item, index) => (
                 <div key={index} className="flex items-start space-x-4">
-                  <div className={`text-red-500 ${i18n.language === "ar" && "ml-3"}`}>
+                  <div
+                    className={`text-red-500 ${
+                      i18n.language === "ar" && "ml-3"
+                    }`}
+                  >
                     <item.icon />
                   </div>
                   <div>
@@ -189,12 +196,20 @@ const Contact = () => {
                     {i18n.language === "ar" ? "إستفسار عام" : "General Inquiry"}
                   </option>
                   <option value="Vehicle Information">
-                    {i18n.language === "ar" ? "معلومات عن السيارة" : "Vehicle Information"}
+                    {i18n.language === "ar"
+                      ? "معلومات عن السيارة"
+                      : "Vehicle Information"}
                   </option>
                   <option value="Test Drive Request">
-                    {i18n.language === "ar" ? "طلب تجربة قيادة" : "Test Drive Request"}
+                    {i18n.language === "ar"
+                      ? "طلب تجربة قيادة"
+                      : "Test Drive Request"}
                   </option>
-                  <option value="Price Quote">{i18n.language === "ar" ? "إستعلام عن السعر" : "Price Quote"}</option>
+                  <option value="Price Quote">
+                    {i18n.language === "ar"
+                      ? "إستعلام عن السعر"
+                      : "Price Quote"}
+                  </option>
                 </select>
               </div>
 

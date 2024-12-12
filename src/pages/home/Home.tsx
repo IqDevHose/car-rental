@@ -10,6 +10,7 @@ import i18n from "@/utils/i18n";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "@/utils/AxiosInstance";
 import { Fuel, GalleryHorizontal, Milestone } from "lucide-react";
+import OfferSection from "@/components/OfferSection";
 
 // const queryClient = useQueryClient();
 
@@ -253,9 +254,9 @@ export default function Home() {
   );
 
   return (
-    <main className="overflow-hidden ">
+    <main className="overflow-hidden">
       <Hero />
-
+      <OfferSection />
       <section className="py-16 bg-white">
         <motion.div
           className="padding-x max-width"
@@ -368,21 +369,24 @@ export default function Home() {
                         {t(car.specification)}
                       </p>
                       <div className="mt-2">
-
                         <div className="bg-green-500 flex justify-around rounded-md py-2 px-4 text-white  gap-x-8">
                           <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
-                            <Fuel size={"20"} /> <p className="text-[14px]">{t(`${car.fuel}`)}</p>
+                            <Fuel size={"20"} />{" "}
+                            <p className="text-[14px]">{t(`${car.fuel}`)}</p>
                           </div>
 
                           <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
-                            <Milestone size={"20"} /> <p className="text-[14px]">{t(`${car.mileage} km`)}</p>
+                            <Milestone size={"20"} />{" "}
+                            <p className="text-[14px]">
+                              {t(`${car.mileage} km`)}
+                            </p>
                           </div>
 
                           <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
-                            <GalleryHorizontal size={"20"} /> <p className="text-[14px]">{car.seats}</p>
+                            <GalleryHorizontal size={"20"} />{" "}
+                            <p className="text-[14px]">{car.seats}</p>
                             {/* {t(`Seats: ${car.seats}`)} */}
                           </div>
-
                         </div>
                       </div>
                     </div>
@@ -426,8 +430,9 @@ const SectionHeader = ({ number, title, subTitle }: sectionType) => {
 
   return (
     <div
-      className={`flex ${i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
-        } items-center space-x-4 border-b border-gray-300 pb-2 `}
+      className={`flex ${
+        i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
+      } items-center space-x-4 border-b border-gray-300 pb-2 `}
     >
       <span className="text-gray-400 text-2xl font-medium ml-2">{number}</span>
       <div className="">
