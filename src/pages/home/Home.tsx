@@ -256,7 +256,7 @@ export default function Home() {
                         <div className="bg-green-500 flex justify-around rounded-md py-2 px-4 text-white  gap-x-8">
                           <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
                             <Fuel size={"20"} />{" "}
-                            <p className="text-[14px]">{t(`${car.fuel}`)}</p>
+                            <p className="text-[14px]  ">{t(`${car.fuel}`)}</p>
                           </div>
 
                           <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
