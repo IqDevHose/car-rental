@@ -2,7 +2,16 @@ import { Link } from "react-router-dom";
 import { fuels, yearsOfProduction } from "../home/Home"; // Import fuels and yearsOfProduction correctly
 import SearchBar from "@/components/Searchbar";
 import CustomFilter from "@/components/CustomFilter";
-import { ArrowLeft, ArrowRight, Calendar, Fuel, GalleryHorizontal, Gauge, Info, Milestone } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Calendar,
+  Fuel,
+  GalleryHorizontal,
+  Gauge,
+  Info,
+  Milestone,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import axiosInstance from "@/utils/AxiosInstance";
 import { useQuery } from "@tanstack/react-query";
@@ -264,7 +273,7 @@ function Gallery() {
               >
                 <div className="overflow-hidden">
                   <img
-                    src={car.images[0].link}
+                    src={car.images[0]?.link}
                     alt={car.name}
                     className="w-full h-56 object-cover"
                   />
@@ -281,21 +290,24 @@ function Gallery() {
                       {t(car.specification)}
                     </p>
                     <div className="mt-2">
-
                       <div className="bg-green-500 flex justify-around rounded-md py-2 px-4 text-white  gap-x-8">
                         <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
-                          <Fuel size={"20"} /> <p className="text-[14px]">{t(`${car.fuel}`)}</p>
+                          <Fuel size={"20"} />{" "}
+                          <p className="text-[14px]">{t(`${car.fuel}`)}</p>
                         </div>
 
                         <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
-                          <Milestone size={"20"} /> <p className="text-[14px]">{t(`${car.mileage} km`)}</p>
+                          <Milestone size={"20"} />{" "}
+                          <p className="text-[14px]">
+                            {t(`${car.mileage} km`)}
+                          </p>
                         </div>
 
                         <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
-                          <GalleryHorizontal size={"20"} /> <p className="text-[14px]">{car.seats}</p>
+                          <GalleryHorizontal size={"20"} />{" "}
+                          <p className="text-[14px]">{car.seats}</p>
                           {/* {t(`Seats: ${car.seats}`)} */}
                         </div>
-
                       </div>
                     </div>
                   </div>
@@ -334,8 +346,9 @@ const InfoLabel = ({ label, value }: any) => {
   const { t, i18n } = useTranslation();
   return (
     <div
-      className={`flex ${i18n.language === "ar" ? "" : ""
-        } items-center gap-2 justify-between`}
+      className={`flex ${
+        i18n.language === "ar" ? "" : ""
+      } items-center gap-2 justify-between`}
     >
       <span className="text-sm font-medium text-gray-700">{label}</span>
       <span className="text-sm text-gray-600">{value}</span>

@@ -236,7 +236,7 @@ export default function Home() {
                     <motion.img
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.4 }}
-                      src={car.images[0].link}
+                      src={car.images[0]?.link}
                       alt={car.name}
                       className="w-full h-56 object-cover"
                     />
