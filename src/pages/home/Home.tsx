@@ -11,6 +11,7 @@ import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "@/utils/AxiosInstance";
 import { Fuel, GalleryHorizontal, Milestone } from "lucide-react";
 import OfferSection from "@/components/OfferSection";
+import WheelLoader from "@/components/WheelLoader";
 
 // const queryClient = useQueryClient();
 
@@ -42,135 +43,17 @@ export const fuels = [
   },
 ];
 
-// const carData = {
-//   id: 1,
-//   name: "Porsche Cayenne",
-//   priceWithVAT: "2 969 000 CZK",
-//   priceWithoutVAT: "2 453 719 CZK",
-//   mileage: "13 000 km",
-//   category: "Osobní",
-//   fuel: "Benzín",
-//   specification: "Coupe/PDLS/Karbon/Pano/HUD/Ventilace",
-//   inOperationSince: "2023-11",
-//   body: "SUV",
-//   power: "260 kW / 354 koní",
-//   engineDisplacement: "2995 ccm",
-//   color: "Šedá",
-//   image: "/cars/porsche.jpeg", // Update this with a valid path
-//   gallery: [
-//     "/cars/porsche.jpeg",
-//     "/cars/1.jpg",
-//     "/cars/2.jpg",
-//     "/cars/3.jpg",
-//     "/cars/4.jpg",
-//     "/cars/5.jpg",
-//     "/cars/6.jpg",
-//   ],
-// };
-
-// export const cars = [
-//   {
-//     id: 1,
-//     image: "/cars/porsche.jpeg",
-//     title: "PORSCHE CAYENNE",
-//     year: 2023,
-//     mileage: "13 000 km",
-//     priceWithVAT: "2 969 000 CZK WITH VAT",
-//     priceWithoutVAT: "2 453 719 CZK WITHOUT VAT",
-//   },
-//   {
-//     id: 2,
-//     image: "/cars/mercedes.jpeg",
-//     title: "MERCEDES-BENZ TŘÍDY V",
-//     year: 2018,
-//     mileage: "116 500 km",
-//     priceWithVAT: "2 300 000 CZK WITH VAT",
-//     priceWithoutVAT: "1 900 826 CZK WITHOUT VAT",
-//   },
-//   {
-//     id: 3,
-//     image: "/cars/mercedes.jpeg",
-//     title: "MERCEDES-BENZ TŘÍDY V",
-//     year: 2018,
-//     mileage: "116 500 km",
-//     priceWithVAT: "2 300 000 CZK WITH VAT",
-//     priceWithoutVAT: "1 900 826 CZK WITHOUT VAT",
-//   },
-//   {
-//     id: 4,
-//     image: "/cars/lamborghini.jpeg",
-//     title: "LAMBORGHINI HURACÁN",
-//     year: 2021,
-//     mileage: "79 900 km",
-//     priceWithVAT: "7 049 000 CZK WITH VAT",
-//     priceWithoutVAT: "5 825 620 CZK WITHOUT VAT",
-//   },
-//   {
-//     id: 5,
-//     image: "/cars/porsche.jpeg",
-//     title: "PORSCHE CAYENNE",
-//     year: 2023,
-//     mileage: "13 000 km",
-//     priceWithVAT: "2 969 000 CZK WITH VAT",
-//     priceWithoutVAT: "2 453 719 CZK WITHOUT VAT",
-//   },
-// ];
-
-// const logos = [
-//   {
-//     id: 1,
-//     name: "Cadillac",
-//     link: "/cadillac",
-//     img: "/car-logo/cadillac.png",
-//   },
-//   {
-//     id: 2,
-//     name: "Chevrolet",
-//     link: "/chevrolet",
-//     img: "/car-logo/Chevrolet.png",
-//   },
-//   {
-//     id: 3,
-//     name: "Dodge",
-//     link: "/dodge",
-//     img: "/car-logo/dodge.png",
-//   },
-//   {
-//     id: 4,
-//     name: "Land Rover",
-//     link: "/land-rover",
-//     img: "/car-logo/Land-Rover.png",
-//   },
-//   {
-//     id: 5,
-//     name: "Lexus",
-//     link: "/lexus",
-//     img: "/car-logo/Lexus.png",
-//   },
-//   {
-//     id: 6,
-//     name: "Nissan",
-//     link: "/nissan",
-//     img: "/car-logo/nissan.png",
-//   },
-// ];
-
-// /cars/brands/all
-type Model = {
-  name: string;
-  year: number;
-};
-
 type BrandsItem = {
   name: string;
   image: string;
-  model?: Model[];
+  Model: any | null;
 };
 type ImageType = {
   link: string;
   id: string;
 };
 type CarsItem = {
+  Model: any | null;
   id: string;
   name: string;
   category: string;
@@ -201,21 +84,22 @@ export default function Home() {
     return response.data;
   };
 
-  const { data: cars } = useQuery({
+  const { data: cars, isLoading } = useQuery({
     queryKey: ["cars"],
     queryFn: fetchCars,
   });
 
-  const {
-    data: logos,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: logos, error } = useQuery({
     queryKey: ["car-brands"],
     queryFn: fetchBrands,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="w-[100vw] h-[100vh] bg-white z-[100] absolute top-0 bottom-0">
+        <WheelLoader />
+      </div>
+    );
   if (error) return <p>Error: {error.message}</p>;
 
   const handleScroll = () => {
@@ -378,7 +262,7 @@ export default function Home() {
                           <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
                             <Milestone size={"20"} />{" "}
                             <p className="text-[14px]">
-                              {t(`${car.mileage} km`)}
+                              {t(`${car.Model?.name}`)}
                             </p>
                           </div>
 

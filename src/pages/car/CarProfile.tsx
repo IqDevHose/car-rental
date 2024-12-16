@@ -4,17 +4,7 @@ import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import axiosInstance from "@/utils/AxiosInstance";
 import { useQuery } from "@tanstack/react-query";
-
-type model = {
-  id: string;
-  name: string;
-  brandId: string;
-  Brand: {
-    id: string;
-    name: string;
-    image: string;
-  };
-};
+import WheelLoader from "@/components/WheelLoader";
 
 type ImageType = {
   link: string;
@@ -36,7 +26,7 @@ type CarsItem = {
   seats: number;
   description: string;
   images: ImageType[];
-  model: model;
+  Model: any | null;
 };
 
 export default function CarProfile() {
@@ -52,7 +42,6 @@ export default function CarProfile() {
   // Fetch car data based on ID
   const fetchCarProfile = async (): Promise<CarsItem> => {
     const response = await axiosInstance.get(`/cars/${id}`);
-    console.log(response.data);
     return response.data;
   };
 
@@ -67,7 +56,12 @@ export default function CarProfile() {
   });
 
   // Loading and error states
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="w-[100vw] h-[100vh] bg-white z-[100] absolute top-0 bottom-0">
+        <WheelLoader />
+      </div>
+    );
   if (error) return <p>Error: {error.message}</p>;
 
   // Fallback to default image or empty
@@ -148,9 +142,7 @@ export default function CarProfile() {
                     {Object.entries({
                       [t("Type")]: carProfile?.category,
                       [t("Fuel")]: carProfile?.fuel,
-                      // [t("Mileage")]: carProfile?.mileage,
                       [t("Color")]: carProfile?.color,
-                      // [t("Power")]: carProfile?.power,
                       [t("Engine Displacement")]:
                         carProfile?.engineDisplacement,
                     }).map(([key, value]) => (
@@ -161,9 +153,22 @@ export default function CarProfile() {
                         <span className="text-gray-600 group-hover:text-gray-900 transition-colors duration-200">
                           {key}
                         </span>
-                        <span className="font-medium text-gray-900">
-                          {value}
-                        </span>
+                        {key === t("Color") ? (
+                          <div className="flex items-center gap-2">
+                            <div
+                              className="w-6 h-6 rounded-full border border-gray-200 shadow-sm"
+                              style={{
+                                backgroundColor: (
+                                  value as string
+                                ).toLowerCase(),
+                              }}
+                            />
+                          </div>
+                        ) : (
+                          <span className="font-medium text-gray-900">
+                            {value}
+                          </span>
+                        )}
                       </div>
                     ))}
                   </div>
