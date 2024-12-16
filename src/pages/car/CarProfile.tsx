@@ -19,7 +19,7 @@ type model = {
 type ImageType = {
   link: string;
   id: string;
-}
+};
 
 type CarsItem = {
   id: string;
@@ -52,7 +52,7 @@ export default function CarProfile() {
   // Fetch car data based on ID
   const fetchCarProfile = async (): Promise<CarsItem> => {
     const response = await axiosInstance.get(`/cars/${id}`);
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   };
 
@@ -102,10 +102,11 @@ export default function CarProfile() {
                     whileHover={{ y: -2 }}
                     onClick={() => handleImageClick(img.link)}
                     className={`relative aspect-square rounded-xl overflow-hidden 
-                  ${image === img.link
-                        ? "ring-2 ring-blue-500 ring-offset-2"
-                        : "hover:ring-2 hover:ring-blue-300 hover:ring-offset-2"
-                      } transition-all duration-200`}
+                  ${
+                    image === img.link
+                      ? "ring-2 ring-blue-500 ring-offset-2"
+                      : "hover:ring-2 hover:ring-blue-300 hover:ring-offset-2"
+                  } transition-all duration-200`}
                   >
                     <img
                       src={img.link}
@@ -147,9 +148,9 @@ export default function CarProfile() {
                     {Object.entries({
                       [t("Type")]: carProfile?.category,
                       [t("Fuel")]: carProfile?.fuel,
-                      [t("Mileage")]: carProfile?.mileage,
+                      // [t("Mileage")]: carProfile?.mileage,
                       [t("Color")]: carProfile?.color,
-                      [t("Power")]: carProfile?.power,
+                      // [t("Power")]: carProfile?.power,
                       [t("Engine Displacement")]:
                         carProfile?.engineDisplacement,
                     }).map(([key, value]) => (

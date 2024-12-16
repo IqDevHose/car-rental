@@ -1,3 +1,5 @@
+import axiosInstance from "@/utils/AxiosInstance";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -42,12 +44,51 @@ const cars = [
   },
 ];
 
+type MostRentedCarsProps = {
+  id: string;
+  name: string;
+  seats: number;
+  category: string;
+  fuel: string;
+  mileage: number;
+  specification: string;
+  color: string;
+  power: number;
+  engineDisplacement: number;
+  price: number;
+  description: string;
+  isAvailable: boolean;
+  isMostRented: boolean;
+  createdAt: string;
+  updatedAt: string;
+  modelId: string | null;
+  images: Image[];
+  Model: any | null;
+  Variant: any[];
+};
+
+type Image = {
+  id: string;
+  link: string;
+  carId: string;
+};
+
 const MostRented = (props: Props) => {
   const { t, i18n } = useTranslation();
 
+  const fetchMostRentedCars = async (): Promise<MostRentedCarsProps> => {
+    const response = await axiosInstance.get("/cars/most-rented");
+    return response.data;
+  };
+
+  const { data: MostRentedCars } = useQuery({
+    queryKey: ["most-rented"],
+    queryFn: fetchMostRentedCars,
+  });
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
-      {cars.map((car) => (
+      {MostRentedCars?.map((car) => (
         <Link
           to={`car/${car.id}`}
           key={car.id}
@@ -59,7 +100,7 @@ const MostRented = (props: Props) => {
             {/* First Image */}
             <img
               src={car.image}
-              alt={car.title}
+              alt={car.name}
               width={400}
               height={300}
               className="w-full object-cover transition duration-[.8s] ease-in-out"
@@ -67,17 +108,15 @@ const MostRented = (props: Props) => {
             {/* Second Image */}
             <img
               src={car.secondImage}
-              alt={`${car.title} second`}
+              alt={`${car.name} second`}
               width={400}
               height={300}
               className="absolute inset-0 w-full h-full object-cover opacity-0 transition duration-[.8s] ease-in-out group-hover:opacity-100"
             />
           </div>
           <div className="p-4">
-            <h2 className="text-lg font-bold text-gray-900">{car.title}</h2>
-            <p className="text-sm text-gray-600 mt-1">
-              {car.year} / {car.mileage}
-            </p>
+            <h2 className="text-lg font-bold text-gray-900">{car.name}</h2>
+            <p className="text-sm text-gray-600 mt-1">{car.category}</p>
           </div>
           <div
             className={`absolute bottom-0 ${
