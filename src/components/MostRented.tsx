@@ -86,8 +86,6 @@ const MostRented = (props: Props) => {
     queryFn: fetchMostRentedCars,
   });
 
-  console.log(MostRentedCars);
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
       {MostRentedCars?.map((car) => (
