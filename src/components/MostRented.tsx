@@ -78,12 +78,14 @@ const MostRented = (props: Props) => {
 
   const fetchMostRentedCars = async (): Promise<MostRentedCarsProps> => {
     const response = await axiosInstance.get("/cars/most-rented");
+    console.log(response.data)
     return response.data;
   };
 
   const { data: MostRentedCars } = useQuery({
     queryKey: ["most-rented"],
     queryFn: fetchMostRentedCars,
+
   });
 
   return (
@@ -92,38 +94,41 @@ const MostRented = (props: Props) => {
         <Link
           to={`car/${car.id}`}
           key={car.id}
-          className={`relative ${
-            i18n.language === "ar" ? "text-right" : "text-left"
-          } overflow-hidden border border-gray-200 group`}
+          className={`relative ${i18n.language === "ar" ? "text-right" : "text-left"
+            } overflow-hidden border border-gray-200 group`}
         >
+          <>{console.log(car)}</>
           <div className="relative overflow-hidden">
             {/* First Image */}
             <img
-              src={car.image}
+              src={car.images[0].link}
               alt={car.name}
               width={400}
               height={300}
-              className="w-full object-cover transition duration-[.8s] ease-in-out"
+              className="w-full h-[200px] max-h-[200px] object-cover transition duration-[.8s] ease-in-out"
             />
             {/* Second Image */}
-            <img
-              src={car.secondImage}
-              alt={`${car.name} second`}
-              width={400}
-              height={300}
-              className="absolute inset-0 w-full h-full object-cover opacity-0 transition duration-[.8s] ease-in-out group-hover:opacity-100"
-            />
+            {
+              car?.images[1]?.link && (
+                <img
+                  src={car?.images[1]?.link}
+                  alt={`${car.name} second`}
+                  width={400}
+                  height={300}
+                  className="absolute inset-0 w-full h-full object-cover opacity-0 transition duration-[.8s] ease-in-out group-hover:opacity-100"
+                />
+              )
+            }
           </div>
           <div className="p-4">
             <h2 className="text-lg font-bold text-gray-900">{car.name}</h2>
             <p className="text-sm text-gray-600 mt-1">
-              {car.Model?.name} / {car.category}
+              {car.year} / {car?.category}
             </p>
           </div>
           <div
-            className={`absolute bottom-0 ${
-              i18n.language === "ar" ? "left-0" : "right-0"
-            }`}
+            className={`absolute bottom-0 ${i18n.language === "ar" ? "left-0" : "right-0"
+              }`}
           >
             <button
               dir={i18n.language === "ar" ? "rtl" : "ltr"}

@@ -56,6 +56,7 @@ type CarsItem = {
   Model: any | null;
   id: string;
   name: string;
+  year: string;
   category: string;
   fuel: string;
   mileage: number;
@@ -262,7 +263,7 @@ export default function Home() {
                           <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
                             <Milestone size={"20"} />{" "}
                             <p className="text-[14px]">
-                              {t(`${car.Model?.name}`)}
+                              {t(`${car?.year}`)}
                             </p>
                           </div>
 
@@ -314,9 +315,8 @@ const SectionHeader = ({ number, title, subTitle }: sectionType) => {
 
   return (
     <div
-      className={`flex ${
-        i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
-      } items-center space-x-4 border-b border-gray-300 pb-2 `}
+      className={`flex ${i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
+        } items-center space-x-4 border-b border-gray-300 pb-2 `}
     >
       <span className="text-gray-400 text-2xl font-medium ml-2">{number}</span>
       <div className="">

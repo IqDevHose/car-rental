@@ -26,6 +26,7 @@ type CarsItem = {
   seats: number;
   description: string;
   images: ImageType[];
+  year: string;
   Model: any | null;
 };
 
@@ -96,11 +97,10 @@ export default function CarProfile() {
                     whileHover={{ y: -2 }}
                     onClick={() => handleImageClick(img.link)}
                     className={`relative aspect-square rounded-xl overflow-hidden 
-                  ${
-                    image === img.link
-                      ? "ring-2 ring-blue-500 ring-offset-2"
-                      : "hover:ring-2 hover:ring-blue-300 hover:ring-offset-2"
-                  } transition-all duration-200`}
+                  ${image === img.link
+                        ? "ring-2 ring-blue-500 ring-offset-2"
+                        : "hover:ring-2 hover:ring-blue-300 hover:ring-offset-2"
+                      } transition-all duration-200`}
                   >
                     <img
                       src={img.link}
@@ -143,6 +143,7 @@ export default function CarProfile() {
                       [t("Type")]: carProfile?.category,
                       [t("Fuel")]: carProfile?.fuel,
                       [t("Color")]: carProfile?.color,
+                      [t("Year")]: carProfile?.year,
                       [t("Engine Displacement")]:
                         carProfile?.engineDisplacement,
                     }).map(([key, value]) => (

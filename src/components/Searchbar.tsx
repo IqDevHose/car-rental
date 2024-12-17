@@ -10,7 +10,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   searchTerm,
   handleSearchChange,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <div className="flex items-center space-x-4 w-full">
@@ -19,7 +19,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         placeholder={t("Search for cars, categories, or fuel types...")}
         value={searchTerm}
         onChange={handleSearchChange}
-        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+        className={`${i18n.language === "ar" ? "text-right" : "text-left"} w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500`}
       />
       {/* You can remove the search button now since the search is happening dynamically */}
     </div>
