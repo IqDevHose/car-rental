@@ -25,6 +25,7 @@ type CarsItem = {
   price: number;
   seats: number;
   description: string;
+  discountPrice: string
   images: ImageType[];
   year: string;
   Model: any | null;
@@ -120,9 +121,24 @@ export default function CarProfile() {
                 </h1>
 
                 <div className="mt-6 space-y-2">
-                  <p className="text-3xl font-semibold text-blue-600">
-                    {carProfile?.price.toLocaleString()}{" "}
-                    {i18n.language === "ar" ? "د.ع" : "IQD"}
+                  <p className="text-3xl font-semibold text-blue-600 flex items-center gap-3">
+                    {carProfile?.discountPrice ? (
+                      <>
+                        <span className="line-through text-gray-400">
+                          {carProfile?.price.toLocaleString()}{" "}
+                          {i18n.language === "ar" ? "د.ع" : "IQD"}
+                        </span>
+                        <span>
+                          {carProfile?.discountPrice}{" "}
+                          {i18n.language === "ar" ? "د.ع" : "IQD"}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        {carProfile?.price.toLocaleString()}{" "}
+                        {i18n.language === "ar" ? "د.ع" : "IQD"}
+                      </>
+                    )}
                   </p>
                 </div>
 
