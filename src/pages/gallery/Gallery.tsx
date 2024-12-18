@@ -246,7 +246,7 @@ function Gallery() {
   };
 
   const filteredCars = cars?.filter((car) =>
-    car.name.toLowerCase().includes(searchTerm.toLowerCase())
+    car.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
