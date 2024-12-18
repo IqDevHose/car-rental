@@ -47,7 +47,9 @@ const Footer = () => {
 
         <div
           className={`footer__links ${
-            i18n.language === "ar" ? "text-right" : "text-left"
+            i18n.language === "ar"
+              ? "text-right flex-row-reverse"
+              : "text-left flex-row"
           }`}
         >
           {footerLinks.map((item) => (
@@ -58,7 +60,9 @@ const Footer = () => {
                   <Link
                     key={index}
                     to={link.url}
-                    className="text-gray-200 flex items-center"
+                    className={`text-gray-200 flex items-center ${
+                      i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
+                    }`}
                   >
                     {link.icon}
                     <span>{t(link.title)}</span>
