@@ -2,29 +2,51 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { motion } from "framer-motion";
+import axiosInstance from "@/utils/AxiosInstance";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
-const offers = [
-  {
-    id: 1,
-    image: "/offers/best.webp",
-    title: "Summer Special",
-    description: "Get 20% off on luxury car rentals",
-  },
-  {
-    id: 2,
-    image: "/offers/last.webp",
-    title: "Weekend Deal",
-    description: "Free upgrade on weekend bookings",
-  },
-  {
-    id: 3,
-    image: "/offers/special.webp",
-    title: "Long Term Rental",
-    description: "Special rates for monthly rentals",
-  },
-];
+// const offers = [
+//   {
+//     id: 1,
+//     image: "/offers/best.webp",
+//     title: "Summer Special",
+//     description: "Get 20% off on luxury car rentals",
+//   },
+//   {
+//     id: 2,
+//     image: "/offers/last.webp",
+//     title: "Weekend Deal",
+//     description: "Free upgrade on weekend bookings",
+//   },
+//   {
+//     id: 3,
+//     image: "/offers/special.webp",
+//     title: "Long Term Rental",
+//     description: "Special rates for monthly rentals",
+//   },
+// ];
+
+interface offerItem {
+  id: string;
+  title: string;
+  image: string;
+  amount: string;
+}
 
 const OfferSection = () => {
+  const { t } = useTranslation();
+  const fetchOffers = async (): Promise<offerItem[]> => {
+    const response = await axiosInstance.get("/offers");
+    return response.data;
+  };
+  const { data: offers, isLoading } = useQuery({
+    queryKey: ["cars"],
+    queryFn: fetchOffers,
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+
   const settings = {
     dots: true,
     infinite: true,
@@ -62,17 +84,21 @@ const OfferSection = () => {
       >
         <div className="relative">
           <Slider {...settings}>
-            {offers.map((offer) => (
+            {offers?.map((offer) => (
               <div key={offer.id} className="relative">
                 <div className="aspect-[21/9] relative overflow-hidden rounded-xl">
                   <img
                     src={offer.image}
-                    alt={offer.title}
+                    alt={t(offer.title)}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white">
-                    <h3 className="text-4xl font-bold mb-4">{offer.title}</h3>
-                    <p className="text-xl">{offer.description}</p>
+                  <div className="absolute inset-0 bg-black/40 flex flex-col items-start justify-center px-10 text-white">
+                    <h3 className="text-4xl font-bold mb-4">
+                      {t(offer.title)}
+                    </h3>
+                    <p className="text-xl bg-orange-400 px-6 py-1 rounded-full">
+                      {offer.amount}
+                    </p>
                   </div>
                 </div>
               </div>

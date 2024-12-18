@@ -67,6 +67,8 @@ type CarsItem = {
   isAvailable?: boolean;
   price: number;
   seats: number;
+  discountPrice: string;
+  youtubeLink: string;
   description: string;
   images: ImageType[];
 };
@@ -135,7 +137,7 @@ export default function Home() {
   };
 
   const filteredCars = cars?.filter((car) =>
-    car.name.toLowerCase().includes(searchTerm.toLowerCase())
+    car.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -262,9 +264,7 @@ export default function Home() {
 
                           <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
                             <Milestone size={"20"} />{" "}
-                            <p className="text-[14px]">
-                              {t(`${car?.year}`)}
-                            </p>
+                            <p className="text-[14px]">{t(`${car?.year}`)}</p>
                           </div>
 
                           <div className="flex flex-col gap-y-1 items-center gap-x-4 mt-2">
@@ -315,8 +315,9 @@ const SectionHeader = ({ number, title, subTitle }: sectionType) => {
 
   return (
     <div
-      className={`flex ${i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
-        } items-center space-x-4 border-b border-gray-300 pb-2 `}
+      className={`flex ${
+        i18n.language === "ar" ? "flex-row-reverse" : "flex-row"
+      } items-center space-x-4 border-b border-gray-300 pb-2 `}
     >
       <span className="text-gray-400 text-2xl font-medium ml-2">{number}</span>
       <div className="">

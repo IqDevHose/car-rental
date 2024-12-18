@@ -1,4 +1,5 @@
 import i18n from "@/utils/i18n";
+import { Facebook, Instagram } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -57,6 +58,7 @@ const Contact = () => {
     {
       title: t("Call Us"),
       content: "+9647750500006",
+      content2: "+9647850500006",
       icon: () => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +78,7 @@ const Contact = () => {
     },
     {
       title: t("Email Us"),
-      content: "middle_east_23@yahoo.com",
+      content: "info@middleast.com",
       icon: () => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -93,6 +95,32 @@ const Contact = () => {
           />
         </svg>
       ),
+    },
+    {
+      title: t("Facebook"),
+      content: (
+        <a
+          className="hover:text-red-500 transition"
+          target="_blank"
+          href="https://www.facebook.com/100090548941415/"
+        >
+          Middle East
+        </a>
+      ),
+      icon: Facebook,
+    },
+    {
+      title: t("Instagram"),
+      content: (
+        <a
+          className="hover:text-red-500 transition"
+          target="_blank"
+          href="https://www.instagram.com/middleast.iq?igsh=cmZ5OTZ3Nms1anI="
+        >
+          @middleast.iq
+        </a>
+      ),
+      icon: Instagram,
     },
   ];
 
@@ -133,6 +161,7 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold">{item.title}</h3>
                     <p className="text-gray-600">{item.content}</p>
+                    <p className="text-gray-600">{item.content2}</p>
                   </div>
                 </div>
               ))}

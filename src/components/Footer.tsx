@@ -1,3 +1,4 @@
+import { Facebook, Instagram } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -14,8 +15,16 @@ const footerLinks = [
   {
     title: "Socials",
     links: [
-      { title: "Instagram", url: "/" },
-      { title: "Facebook", url: "/" },
+      {
+        // title: "Instagram",
+        icon: <Instagram size={24} className="text-gray-200" />,
+        url: "https://www.instagram.com/middleast.iq?igsh=cmZ5OTZ3Nms1anI=",
+      },
+      {
+        // title: "Facebook",
+        icon: <Facebook size={24} className="text-gray-200" />,
+        url: "https://www.facebook.com/100090548941415/",
+      },
     ],
   },
 ];
@@ -36,18 +45,23 @@ const Footer = () => {
           />
         </div>
 
-        <div className={`footer__links ${i18n.language === "ar" ? "text-right" : "text-left"}`}>
+        <div
+          className={`footer__links ${
+            i18n.language === "ar" ? "text-right" : "text-left"
+          }`}
+        >
           {footerLinks.map((item) => (
             <div key={item.title} className="footer__link">
-              <h3 className="font-bold text-white">{t(item.title)}</h3>{" "}
+              <h3 className="font-bold text-white">{t(item.title)}</h3>
               <div className="flex flex-col gap-5">
-                {item.links.map((link) => (
+                {item.links.map((link, index) => (
                   <Link
-                    key={link.title}
+                    key={index}
                     to={link.url}
-                    className="text-gray-200"
+                    className="text-gray-200 flex items-center"
                   >
-                    {t(link.title)}
+                    {link.icon}
+                    <span>{t(link.title)}</span>
                   </Link>
                 ))}
               </div>
